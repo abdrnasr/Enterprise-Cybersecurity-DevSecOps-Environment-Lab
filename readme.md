@@ -1,16 +1,16 @@
-#  Enterprise Cybersecurity & DevSecOps Environment Lab 🔐
+#  Enterprise Cybersecurity & DevSecOps Envi Lab 🔐
 ## 📚 Content
 
 - [🔐 Overview](#overview)
 - [🏗️ Architecture](#architecture)
 - [📅 Project Phases](#project-phases)
-  - [Phase 1 – Core Network Infrastructure](phase1_infra/README.md)
-  - [Phase 2 – Internal Web App + IAM](phase2_app_iam/README.md)
-  - [Phase 3 – Monitoring & Visibility](phase3_monitoring/README.md)
-  - [Phase 4 – GitLab & Secrets Management Setup](phase4_gitlab_vault/README.md)
-  - [Phase 5 – Secure CI/CD Pipeline](phase5_secure_pipeline/README.md)
-  - [Phase 6 – Secrets Management & Access Control](phase6_secrets_access/README.md)
-  - [Phase 7 – Attack Simulation & Detection](phase7_attack_simulation/README.md)
+  - [Phase 1 – Core Network Infrastructure](phase1_infra/readme.md)
+  - [Phase 2 – Internal Web App + IAM](phase2_app_iam/readme.md)
+  - [Phase 3 – Monitoring & Visibility](phase3_monitoring/readme.md)
+  - [Phase 4 – GitLab & Secrets Management Setup](phase4_gitlab_vault/readme.md)
+  - [Phase 5 – Secure CI/CD Pipeline](phase5_secure_pipeline/readme.md)
+  - [Phase 6 – Secrets Management & Access Control](phase6_secrets_access/readme.md)
+  - [Phase 7 – Attack Simulation & Detection](phase7_attack_simulation/readme.md)
 - [⚙️ Lab Requirements](#lab-requirements)
 - [🎯 Lab Goals](#lab-goals)
 - [🚀 How to Use This Repository](#how-to-use-this-repository)
@@ -74,13 +74,13 @@ By separating functions and limiting cross-network communication through defined
 
 | Phase | Title | Description |
 |-------|-------|-------------|
-| [**Phase 1**](phase1_infra/README.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
-| [**Phase 2**](phase2_app_iam/README.md) | Internal Web App + IAM | Deploy internal Next.js app with database and Keycloak IAM server, accessible via DMZ reverse proxy. |
-| [**Phase 3**](phase3_monitoring/README.md) | Monitoring & Visibility | Deploy Wazuh + ELK Stack for SIEM, with optional Prometheus/Grafana for metrics. Agents installed on all key VMs. |
-| [**Phase 4**](phase4_gitlab_vault/README.md) | GitLab & Secrets Management Setup | Install and configure GitLab CE for source control and CI/CD. Optional: Deploy HashiCorp Vault for secure secret storage. |
-| [**Phase 5**](phase5_secure_pipeline/README.md) | Secure CI/CD Pipeline | Build a GitLab CI/CD pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the Next.js app. |
-| [**Phase 6**](phase6_secrets_access/README.md) | Secrets Management & Access Control | Integrate Vault (or GitLab secrets) into CI/CD. Implement RBAC, audit logging, and secure deployment workflows. |
-| [**Phase 7**](phase7_attack_simulation/README.md) | Attack Simulation & Detection | Use Kali to simulate real-world attacks and validate detection and alerting in Wazuh, Kibana, and Grafana dashboards. |
+| [**Phase 1**](phase1_infra/readme.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
+| [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal Next.js app with database and Keycloak IAM server, accessible via DMZ reverse proxy. |
+| [**Phase 3**](phase3_monitoring/readme.md) | Monitoring & Visibility | Deploy Wazuh + ELK Stack for SIEM, with optional Prometheus/Grafana for metrics. Agents installed on all key VMs. |
+| [**Phase 4**](phase4_gitlab_vault/readme.md) | GitLab & Secrets Management Setup | Install and configure GitLab CE for source control and CI/CD. Optional: Deploy HashiCorp Vault for secure secret storage. |
+| [**Phase 5**](phase5_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a GitLab CI/CD pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the Next.js app. |
+| [**Phase 6**](phase6_secrets_access/readme.md) | Secrets Management & Access Control | Integrate Vault (or GitLab secrets) into CI/CD. Implement RBAC, audit logging, and secure deployment workflows. |
+| [**Phase 7**](phase7_attack_simulation/readme.md) | Attack Simulation & Detection | Use Kali to simulate real-world attacks and validate detection and alerting in Wazuh, Kibana, and Grafana dashboards. |
 
 ---
 
