@@ -61,7 +61,7 @@ For the firewall, we will need 3 interfaces, one for each network segment.
 - The first one will be set to "Bridged Adapter". This will allow the firewall to act as if it is a computer within my home network. Thus, I can communicate with this VM from my computer and from the Kali linux VM.
 
 <p align="center">
-  <img src="images/Firewall_Int_1.png" width="600">
+  <img src="images/Firewall_Int_1.PNG" width="600">
 </p>
 
 - The second interface will be connected to the DMZ network.
