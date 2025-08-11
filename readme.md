@@ -12,7 +12,7 @@
   - [Phase 6 – Secrets Management & Access Control](phase6_secrets_access/readme.md)
   - [Phase 7 – Attack Simulation & Detection](phase7_attack_simulation/readme.md)
 - [⚙️ Lab Requirements](#lab-requirements)
-- [🎯 Lab Goals](#lab-goals)
+- [🎯 Lab Goals & Progress](#lab-goals)
 - [🚀 How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
@@ -22,10 +22,10 @@
 
 ## 📌 Overview
 
-This repository documents a complete, multi-phase **Cybersecurity and DevSecOps lab** designed to simulate a realistic enterprise environment. The lab covers:
+This repository documents a complete, multi-phase **Cybersecurity, Software Engineering, and DevSecOps lab** designed to simulate a realistic enterprise environment. The lab covers:
 
 - Network segmentation
-- Secure service deployment
+- Secure service development and deployment
 - IAM (Identity and Access Management)
 - Centralized monitoring
 - Secure CI/CD
@@ -72,7 +72,7 @@ By separating functions and limiting cross-network communication through defined
 
 ## 📅 Project Phases
 
-| Phase | Title | Description |
+| <span style="padding-right:20px;">Phase</span> | Title | Description |
 |-------|-------|-------------|
 | [**Phase 1**](phase1_infra/readme.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
 | [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal Next.js app with database and Keycloak IAM server, accessible via DMZ reverse proxy. |
@@ -88,18 +88,21 @@ By separating functions and limiting cross-network communication through defined
 
 ## ⚙️ Lab Requirements
 
-- Virtualization software: VirtualBox, VMware, or Proxmox
+- Virtualization software: VirtualBox, VMware, or Proxmox (I will use VitrualBox)
 - Minimum hardware recommendation:
   - **CPU:** 8 cores
   - **RAM:** 16 GB (32 GB preferred for smoother multi-VM operation)
   - **Disk:** 200 GB free space
-- Networking: Ability to configure host-only, NAT, and bridged adapters
+- Networking: Ability to configure host-only, NAT, and bridged adapters on the virtualization software
+- Virtual OS Images:
+  - [Ubuntu Server](https://ubuntu.com/download) — Here, we will be using Ubuntu Server for the internal servers (VMs), as I am most familiar with it.
+  - [Kali Linux](https://www.kali.org/get-kali/#kali-platforms)— Kali comes with a lot of test tools that will allow us to simulate attacks against our network.
 - Internet access for package installations
 
 ---
 <a id="lab-goals"></a>
 
-## 🎯 Lab Goals
+## 🎯 Lab Goals & Progress
 
 - Build a **realistic enterprise security architecture** in a controlled lab
 - Implement **segmented networks** with DMZ and internal zones
@@ -131,8 +134,9 @@ This will give you a clear understanding of **why** each phase matters and how i
 <a id="technical-readers"></a>
 
 ### Technical Readers
-1. Start from **Phase 1** and follow the README in each phase folder.
-2. Each phase README includes:
+First of all, I expect that readers have some proficiency with Linux, virtualizing environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult additional external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the lab, not to provide exhaustive tutorials for every tool or command.
+1. Start from **Phase 1** and follow the README & lab-steps in each phase folder.
+2. Each phase includes:
    - Overview and objectives
    - VM/service setup
    - Configuration details, such as:
