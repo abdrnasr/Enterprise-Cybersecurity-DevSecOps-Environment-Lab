@@ -1,4 +1,4 @@
-#  Enterprise Cybersecurity & DevSecOps Envi Lab 🔐
+#  Enterprise Cybersecurity & DevSecOps Environment Project 🔐
 ## 📚 Content
 
 - [🔐 Overview](#overview)
@@ -11,8 +11,8 @@
   - [Phase 5 – Secure CI/CD Pipeline](phase5_secure_pipeline/readme.md)
   - [Phase 6 – Secrets Management & Access Control](phase6_secrets_access/readme.md)
   - [Phase 7 – Attack Simulation & Detection](phase7_attack_simulation/readme.md)
-- [⚙️ Lab Requirements](#lab-requirements)
-- [🎯 Lab Goals & Progress](#lab-goals)
+- [⚙️ Project Requirements](#project-requirements)
+- [🎯 Project Goals & Progress](#project-goals)
 - [🚀 How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
@@ -22,7 +22,7 @@
 
 ## 📌 Overview
 
-This repository documents a complete, multi-phase **Cybersecurity, Software Engineering, and DevSecOps lab** designed to simulate a realistic enterprise environment. The lab covers:
+This repository documents a complete, multi-phase **Cybersecurity, Software Engineering, and DevSecOps Project** designed to simulate a realistic enterprise environment. The project covers:
 
 - Network segmentation
 - Secure service development and deployment
@@ -37,8 +37,8 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 **Primary purposes of this repository:**
 
 - **Showcase, hone, and improve** my skills in **cybersecurity**, **software engineering**, and **DevSecOps**.
-- Provide **non-technical viewers** with clear lab results and overall outcomes.
-- Enable **technical audiences** to follow along step-by-step through the lab build process.
+- Provide **non-technical viewers** with clear results and overall outcomes.
+- Enable **technical audiences** to follow along step-by-step through the project build process.
 - Serve as an **aspiration and learning resource** for other aspiring cybersecurity professionals.
 - Offer a **clear blueprint** for building a comprehensive, realistic, and security-focused lab environment.
 - **Demonstrate the cybersecurity mindset** — for example, when deploying a firewall, consider:
@@ -84,9 +84,9 @@ By separating functions and limiting cross-network communication through defined
 
 ---
 
-<a id="lab-requirements"></a>
+<a id="project-requirements"></a>
 
-## ⚙️ Lab Requirements
+## ⚙️ Project Requirements
 
 - Virtualization software: VirtualBox, VMware, or Proxmox (I will use VitrualBox)
 - Minimum hardware recommendation:
@@ -100,11 +100,11 @@ By separating functions and limiting cross-network communication through defined
 - Internet access for package installations
 
 ---
-<a id="lab-goals"></a>
+<a id="project-goals"></a>
 
-## 🎯 Lab Goals & Progress
+## 🎯 Project Goals & Progress
 
-- Build a **realistic enterprise security architecture** in a controlled lab
+- Build a **realistic enterprise security architecture** in a controlled environment
 - Implement **segmented networks** with DMZ and internal zones
 - Deploy **IAM** for user authentication and authorization
 - Implement **centralized logging and monitoring**
@@ -121,7 +121,7 @@ By separating functions and limiting cross-network communication through defined
 <a id="non-technical-readers"></a>
 
 ### Non-Technical Readers
-In each section of the lab, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase.   You don’t need to follow the technical steps — instead, focus on:
+In each section of the project, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase.   You don’t need to follow the technical steps — instead, focus on:
 - The **before vs. after** state of the environment
 - The **problems addressed** in each phase
 - The **improvements in security posture**
@@ -134,7 +134,7 @@ This will give you a clear understanding of **why** each phase matters and how i
 <a id="technical-readers"></a>
 
 ### Technical Readers
-First of all, I expect that readers have some proficiency with Linux, virtualizing environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult additional external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the lab, not to provide exhaustive tutorials for every tool or command.
+First of all, I expect that readers have some proficiency with Linux, virtualizing environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult additional external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the project, not to provide exhaustive tutorials for every tool or command.
 1. Start from **Phase 1** and follow the README & lab-steps in each phase folder.
 2. Each phase includes:
    - Overview and objectives

@@ -1,4 +1,4 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Lab – Phase 1: Core Network Infrastructure
+# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 1: Core Network Infrastructure
 
 ---
 
@@ -30,17 +30,39 @@ By the end of Phase 1:
 
 ---
 
-## 📽️ Demo & Results – Non-Technical Overview (Soon)
+## 📽️ Demo & Results – Non-Technical Overview 
 
-### **What you’ll see:**
+### Benign User
+#### Admin can connect to the DMZ server and control it.
+<p align="center">
+  <img src="images/Admin_SSH.png">
+</p>
 
-#### Benign User
-- Admin can connect to the DMZ server and control it.
-- External users can connect to the web server (reverse proxy).
+ This image shows that, I as an admin, can now control the publicly exposed server, which allows me to deploy services and control this machine.
 
-#### Attacker
+### External users can connect to the web server (reverse proxy).
+<p align="center">
+  <img src="images/Admin_Reverse.png">
+</p>
+This means that we can now start providing services to external users.
+
+### Attacker
 - A simulated hacker scanning and attacking.
 - How lack of monitoring allows undetected access attempts.
+
+#### Brute-force Attack
+<p align="center">
+  <img src="images/Kali_SSH.png">
+</p>
+
+- This image shows an attacker attempting to gain access to the DMZ server using brute-force.
+
+#### Port Scanning Attack
+<p align="center">
+  <img src="images/Kali_Nmap.png">
+</p>
+
+- This image shows a successful port scan. This allows attackers to know which services are exposed and plan for attacks.
 
 ---
 

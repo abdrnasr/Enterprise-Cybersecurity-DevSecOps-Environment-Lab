@@ -141,6 +141,27 @@ Essentially, this configures this interface to connect to the DMZ network, to wh
 ```
 sudo netplan apply
 ```
+
+ **Note: If your firewall's IP address keeps changing, you need to configure a fixed IP value. You may also need to configure your home router to assign a fixed IP address to firewall VM (which requires access to your home router). This can be done as follows for example:**
+
+```
+network:
+  version: 2
+  ethernets:
+    enp0s3:
+      addresses: [192.168.33.6/24] 
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.33.1        # your WAN gateway
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+
+    enp0s8:
+      addresses: [192.168.10.1/24]
+
+    enp0s9:
+      addresses: [192.168.20.1/24]
+```
 ### DMZ VM
 The DMZ VM is much simpler to setup since we only have one interface that should be connected to the DMZ network.
 
