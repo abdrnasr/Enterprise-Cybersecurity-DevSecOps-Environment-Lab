@@ -1,8 +1,8 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Lab – Phase 4: GitLab CI/CD & Secret Management
+# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 5: GitLab CI/CD & Secret Management
 
 ## 🧩 Overview
 
-In Phase 4, we introduce the infrastructure required for implementing **DevSecOps workflows**, starting with the installation and configuration of **GitLab CE** for source control and CI/CD, and optionally **HashiCorp Vault** for secure secret storage.
+In Phase 5, we introduce the infrastructure required for implementing **DevSecOps workflows**, starting with the installation and configuration of **GitLab CE** for source control and CI/CD, and optionally **HashiCorp Vault** for secure secret storage.
 
 This phase does not yet implement a CI/CD pipeline, but prepares the necessary tools and services to support secure software development and delivery in future phases.
 
@@ -74,7 +74,7 @@ By the end of this phase:
 
 ## ✅ Next Step
 
-In **Phase 5**, we will implement secure CI/CD pipelines using GitLab, integrating:
+In **Phase 6**, we will implement secure CI/CD pipelines using GitLab, integrating:
 - SAST (Static Application Security Testing)
 - DAST (Dynamic Application Security Testing)
 - Secret injection (via GitLab or Vault)

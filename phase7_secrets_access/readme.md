@@ -1,8 +1,8 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Lab – Phase 5: Secure CI/CD Pipeline
+# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 7: Secure CI/CD Pipeline
 
 ## 🧩 Overview
 
-In Phase 5, we implement a **secure Continuous Integration / Continuous Deployment (CI/CD) pipeline** using **GitLab CI**, focused on integrating **security testing and analysis** into the software development lifecycle (SDLC). This phase leverages the GitLab instance deployed in Phase 4 and targets the **Next.js app** hosted internally.
+In Phase 7, we implement a **secure Continuous Integration / Continuous Deployment (CI/CD) pipeline** using **GitLab CI**, focused on integrating **security testing and analysis** into the software development lifecycle (SDLC). This phase leverages the GitLab instance deployed in Phase 4 and targets the **Next.js app** hosted internally.
 
 ---
 
@@ -76,7 +76,7 @@ By the end of this phase:
 
 ## ✅ Next Step
 
-In **Phase 6**, we will enhance security by:
+In **Phase 8**, we will enhance security by:
 - Integrating **Vault** or GitLab secrets management
 - Configuring access policies for environment-specific secrets
 - Logging, alerting, and reporting from CI/CD security scans

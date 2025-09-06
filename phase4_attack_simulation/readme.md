@@ -1,9 +1,8 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Lab– Phase 7: Attack Simulation & Detection
+# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 4: Attack Simulation & Detection
 
 ## 🧩 Overview
 
-In Phase 7, we move into **active attack simulation** to validate the resilience of our environment and the effectiveness of our monitoring stack.  
-We will launch **different types of attacks** from the Kali attacker VM against various components of the lab and evaluate:
+In Phase 4, we move into **active attack simulation** to validate the resilience of our environment and the effectiveness of our monitoring stack.  We will launch **different types of attacks** from the Kali attacker VM against various components of the lab and evaluate:
 
 - How well the environment reacts to each attack
 - How quickly and easily the attacks can be detected
@@ -18,11 +17,20 @@ This phase represents the **"red team vs. blue team"** part of the lab, testing 
 | VM Name              | Role                        |
 |----------------------|-----------------------------|
 | **Kali Attacker**    | Launches simulated attacks  |
-| **Firewall VM**      | Filters, routes, and logs   |
+| **Firewall VM**      | Filters & routes   |
 | **DMZ VM**           | SSH jump host & reverse proxy target |
 | **Internal App VM**  | Next.js app + database      |
 | **IAM VM**           | Keycloak authentication    |
-| **Monitoring VM**    | Wazuh + ELK, Prometheus, Grafana, optional Splunk |
+| **Monitoring VM**    | Wazuh Manager, Indexer & Dashboard |
+
+---
+
+## 🎯 Phase Goals
+
+By the end of this phase:
+- We will have a **detection map** for common network, service, and application-level attacks
+- We will know **which layers** in our architecture provide the fastest and clearest alerts
+- We will have documented **improvement areas** for future security hardening
 
 ---
 
@@ -43,7 +51,7 @@ This phase represents the **"red team vs. blue team"** part of the lab, testing 
 
 ### 🔹 Web Application Layer
 - **Vulnerability scanning** using `nikto`, `wpscan`, or `Arachni`
-- **SQL Injection** attempts against the Next.js app API using `sqlmap`
+- **SQL Injection** attempts against the Next.js app API 
 - **XSS (Cross-Site Scripting)** in form fields or query parameters
 - **Auth bypass** attempts against Keycloak login
 
@@ -71,18 +79,7 @@ For each simulated attack, we will:
 
 ---
 
-## 🎯 Phase Goals
-
-By the end of this phase:
-- We will have a **detection map** for common network, service, and application-level attacks
-- We will know **which layers** in our architecture provide the fastest and clearest alerts
-- We will have documented **improvement areas** for future security hardening
-
----
 
 ## ✅ Next Step
 
-In **Phase 8**, we can focus on:
-- Automating responses to certain alerts (SOAR-like capabilities)
-- Tuning detection rules for fewer false positives
-- Expanding attack simulations to cover more advanced techniques (pivoting, privilege escalation, data exfiltration)
+In **Phase 5**, we will start working with DevOps & DevSecOps portion of the lab.

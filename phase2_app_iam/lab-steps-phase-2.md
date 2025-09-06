@@ -45,8 +45,14 @@ We do not need any additional setup for now, because now the communication betwe
   <img src="images/DMZ_Ping_IAM.png">
 </p>
 
+---
 # IAM Installation
 Here, I will be using Keycloak as an IAM solution for this environment. The steps for download and installation are described [here](https://www.keycloak.org/getting-started/getting-started-zip). 
+
+## Keycloak
+Keycloak is a powerful open-source Identity and Access Management (IAM) solution that centralizes authentication and authorization across an enterprise network, providing a single source of truth for user roles and permissions. By consolidating access control, organizations can easily make changes to roles and permissions that propagate across all integrated applications, ensuring consistent security policies while reducing administrative overhead. It offers robust security features such as Single Sign-On (SSO), Multi-Factor Authentication (MFA), and centralized session management, while supporting industry-standard protocols like OpenID Connect, OAuth 2.0, and SAML 2.0 for seamless interoperability. Keycloak integrates smoothly with enterprise systems, including LDAP, Active Directory, and third-party identity providers, and its extensibility allows for custom authentication flows and identity brokering. 
+
+For our project's use, we will define users and roles, and these roles will be used in our app. Instead of managing users directly in our app (e.g., create a table for users), all credentials and roles are stored and dealt with in the IAM. In our app, we only communicate with the IAM to verify the user and their allowed actions.
 
 ## Downloading and Running Keycloak
 
@@ -139,7 +145,8 @@ If everything went well, you should be able to access and login with the admin c
 
  **Note: With this setup, the admin pages are exposed to external access, and should be closed. We could do that later, after we complete the setup process. Also, all traffic is not encrypted and credentials (and tokens issued by Keycloak) may be exposed with this setup.**
 
- # Nginx TLS Encryption
+---
+# Nginx TLS Encryption
 To protect the traffic between any external user and the internal services, we must use TLS. We will use a self-signed certificate for now.
 
 To generate a TLS certificate, you can use openssl. Ensure, you include the external IP address of the firewall in the certificate. 
@@ -199,7 +206,9 @@ If this works, you should be able to use HTTPs with the IAM. This also ensures t
 
 There is red warning signifies that the certificate was not manually added as a trusted TLS certificate to the browser. You can add it manually in your browser's settings. However, in production environment, you either need to sign by a well-known certificate authority or by a local PKI in the company. For this lab's purpose, this will work fine.
 
+---
 <a id="keycloak-config"></a>
+
 # Keycloak Configuration
 For our app to work with Keycloak, we must first create a Keycloak client, visit keycloak at https://192.168.33.6/sec and create a client. A client is essentially a configuration that will allow our app to interact with Keycloak and exchange tokens.
 
@@ -234,6 +243,7 @@ For our app to work with Keycloak, we must first create a Keycloak client, visit
 
 - We have not created any new realms for Keycloak, as we will be using the default realm **master**. 
 
+---
 # APP VM Setup
 Next, we will prepare the APP VM to use an application that needs authentication and authorization based on Keycloak. For the purpose of this project, I have created a simple chatting app, which can be found [here](https://github.com/abdrnasr/Chat-App-with-Keycloak-IAM).
 
@@ -466,6 +476,10 @@ server {
 ```
 Now reload Nginx to reflect the new changes.
 
+## ChatApp on Startup
+Now that we have fully configured the chat-app, you may want register it to run on startup. You could do this with the help of systemd. This will ensure that you do not have to run the app manually after any system reboot.
+
+---
 # Extra Keycloak Configs
 
 An advantage for using an IAM such as Keycloak is that we can delegate the entirety of authentication and authorization to the IAM. Our chat app will ONLY check the validity of the issued tokens, check the user info, and permissions. In our app, we will not be registering any users or granting permissions, as this is entirely done by the IAM.
@@ -531,8 +545,11 @@ After that, you can assign roles to the users. For example, this user will only 
   <img src="images/Keycloak_ViewerPerms.png">
 </p>
 
-# Testing
+## Keycloak on Startup
+Now that we have fully configured keycloak for our use, you may want register it to run on startup. You could do this with the help of systemd. 
 
+---
+# Testing
 ## Trying The Chat App
 To test the app, navigate to APP VM to the directory where the chat app is located, ensure all environment variables and other services are correctly configured, and run the app.
 ```bash
@@ -557,6 +574,7 @@ After successfully signing in with Keycloak, you will get redirect to the home p
 
 Now you can write, create, or edit messages depending on which role you were assigned.
 
+---
 # Considerations
 ## Accessing Keycloak Externally
 Currently, an admin can remotely configure keycloak and work with it, all endpoints are exposed. However, this is a security risk especially if the admins do not use hard passwords or use 2FA with keycloak. For that, you can "unexposed" some of the admin dashboards and only allow access to them from the DMZ computer. Keycloak provides [guidance](https://www.keycloak.org/server/reverseproxy#_exposed_path_recommendations) on how to do this, but we will not do this here for this project.
@@ -580,3 +598,23 @@ For example, assume we choose and register the domain name **enterpriseXYZ.com**
 So, depending on the location of the user and the DNS they use, they will get a different IP address to connect to. Now, instead of accessing the app through direct IP address access we can request https://enterpriseXYZ.com, which will work seamlessly any where.
 
 This DNS solution works well for larger scale networks, since we will only need to configure the IP address on two DNS servers, and not on every computer.
+
+# Technical Summary
+
+In this stage of the lab, the environment is expanded by introducing two additional virtual machines: one dedicated to `Identity and Access Management (IAM) with Keycloak` and another for `hosting the application`. Both are connected to the internal host-only network, which keeps them logically separated from the DMZ segment. This design ensures that external access is only possible through controlled paths while still allowing the internal servers to communicate with each other and reach the internet through the firewall.
+
+The `IAM VM` is provisioned with sufficient resources to run Keycloak, which requires more memory than the earlier servers. Network configuration assigns static addressing and ensures that traffic from the internal network can be routed outward through the firewall. Connectivity tests confirm that the internal machines can reach the DMZ services and vice versa, establishing a functional baseline for later integration.
+
+`Keycloak` is then deployed on the `IAM VM` to serve as the centralized identity and access management platform. It provides single sign-on, multi-factor authentication, session management, and integration with protocols such as `OpenID Connect and OAuth 2.0`. By consolidating user accounts, credentials, and roles within `Keycloak`, the lab eliminates the need for the application to manage its own user data. Instead, the application will delegate authentication and authorization checks to the `IAM`, simplifying administration and enforcing consistent policies across the environment.
+
+Because the `IAM` service resides on the internal network, special considerations are required to make it accessible for external use cases. Several methods are evaluated, including direct exposure through the firewall, tunneling traffic through the DMZ via SSH, and relaying requests with the existing `Nginx reverse proxy`. The reverse proxy approach is selected, as it provides the balance of accessibility and control needed for the project. Nginx is configured to only expose the required endpoints externally, enabling secure interaction between outside clients and the IAM service.
+
+To further improve security, `TLS encryption` is added using a `self-signed certificate`, ensuring that communications with `Keycloak` are encrypted even if the certificate is not trusted by default in a browser. With these measures in place, the IAM is accessible at a controlled external address through the proxy while continuing to protect the internal network from direct exposure.
+
+Once `Keycloak` is operational, it is configured with clients, roles, and users. Clients define how external applications interact with the IAM, while roles are used to represent different levels of permissions. Users are then created and assigned appropriate roles, allowing the lab’s sample application to authenticate against `Keycloak` and receive authorization tokens that govern access rights.
+
+On the `application VM`, a `simple chat application` is deployed as a proof of concept. This app uses a database backend for storing data and integrates directly with the IAM service for authentication. The environment variables and configuration files of the app reference `Keycloak` as the identity provider. When users access the application, they are redirected to `Keycloak` for login, and their tokens determine which actions are permitted based on their assigned roles. `Role-based access control` is enforced directly by validating the tokens for each request.
+
+During testing, challenges are encountered with how the application server communicates with the IAM due to `NAT hairpinning`. This occurs when internal machines attempt to reach a service through its external address, which can cause failures in environments without proper NAT reflection. The lab discusses this limitation and demonstrates that while simple fixes exist for the single app server, larger environments would benefit from solutions like `DNS split-horizon`, where internal and external users resolve the same service to different addresses.
+
+By the end of this stage, the lab environment successfully demonstrates a secure architecture where authentication and authorization are centralized through Keycloak, external access is mediated by a reverse proxy with TLS encryption, and an application integrates seamlessly with the IAM for identity verification and role-based control. This setup closely mirrors real enterprise environments where separation of duties, secure access, and centralized management are essential.

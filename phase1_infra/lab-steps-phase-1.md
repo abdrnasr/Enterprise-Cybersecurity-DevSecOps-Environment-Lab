@@ -27,9 +27,9 @@ After downloading those images, we need to setup the VMs. We initially need 3 VM
 
 - Now you can go ahead and run the VM.
 - Running the VMs for the first, you will need to setup some options inside the VM. The only important thing here is to  provide a username and a password that you will remember.
+- You need to repeat the above steps for every VM.
 
 ---
-- You need to repeat the above steps for every VM.
 # VirtualBox Network Settings Configuration
 
 An important step in the process is to correctly setup network interfaces.
@@ -90,6 +90,7 @@ Lastly, you need to configure the dmz VM to connect to the DMZ interface as foll
   <img src="images/DMZ_Int.png" width="600">
 </p>
 
+---
 # Network Settings Configuration VM
 Now, inside the VMs, we need to identify the correct interface name and to which network it belongs. Then, we configure those interface to with the correct settings, such as IP address, DNS name,
 
@@ -203,6 +204,7 @@ Now, you should be able to ping the firewall VM from DMZ VM and vice versa.
 
  **Note: However, you will still not be able to use the dmz for external traffic since the firewall routing is not configured yet.**
 
+---
 # Firewall Routing Setup
 
 Currently, the firewall does not know how to route external ingress/egress traffic, and by default, routing is disabled on the VM.
@@ -289,7 +291,7 @@ This tells the firewall that any traffic coming from interface **enp0s3** headed
 | 22 | 192.168.10.2:22  | 
 | 80 | 192.168.10.2:80  | 
 | 443 | 192.168.10.2:443| 
-
+---
 # Accessing The Services
 Now that the routing rules are added, we can access the internal services within the DMZ.
 
@@ -322,8 +324,8 @@ We can perform port scanning like so:
   <img src="images/Kali_Nmap.png">
 </p>
 
+---
 # Security Considerations
-
 ## Attack Detection
 With our current setup, the only way to see the these attacks is by looking at the network traffic on the interface of the VMs. However, there various problems with this approach:
 
@@ -336,10 +338,26 @@ Without a system to collect the traffic from the firewall and the other VMs, it 
 ## Points To Consider
 - The firewall now is not restrictive. It allows packets to flow in and out without filtering, as the default action is to accept the traffic. The problem here is that the internal users of the network may be able to access any website externally and download malware on the system.
 
-- External traffic can only reach the DMZ if the destination port is 22,80, or 443. Thus, these services are part of the attack surface and need to be secured. 
+- External traffic can only reach the DMZ if the destination port is 22,80, or 443. Thus, these ports are part of the attack surface and need to be secured. 
 
 - Currently, SSH uses password based-authentication which is generally weaker than public-key-based authentication. 
 
 - There is no encryption for the web traffic, because we are not using TLS yet.
+
+---
+
+# Technical Summary
+
+This lab demonstrates how to build a virtual enterprise-like network environment using `VirtualBox`, `Ubuntu Server`, and `Kali Linux`. The objective is to configure a firewall, set up a DMZ with services, and simulate attacks using `Kali` to test the configuration.
+
+`VirtualBox` must be installed, followed by downloading `Ubuntu Server` (to be used for the firewall and DMZ) and `Kali Linux`(to act as the external attacker). Three virtual machines are created: the `firewall VM`, which will connect all network segments and enforce traffic rules; the `DMZ VM`, which will host an `SSH beacon` and a `reverse proxy (Nginx)`; and the Kali VM, which will be used to launch attacks. Inside `VirtualBox`, two host-only networks are created—`192.168.10.0/24` for the DMZ and `192.168.20.0/24` for the internal network. The firewall is assigned three interfaces (WAN via bridged mode, DMZ via host-only, and internal via host-only), the DMZ VM is connected to the DMZ network, and the `Kali VM` is set to bridged mode.
+
+Within the VMs, network interfaces are identified using the `ip link` command. The firewall is configured with static IPs: WAN receives DHCP or a static address, the DMZ interface is given `192.168.10.1/24`, and the internal network is given `192.168.20.1/24`. The `DMZ VM` is configured with IP `192.168.10.2/24`, gateway `192.168.10.1`, and DNS servers `8.8.8.8` and `1.1.1.1`. These configurations are applied using `netplan`. Connectivity is tested by pinging between the firewall and the DMZ VM.
+
+Routing is then enabled on the firewall by editing `/etc/sysctl.conf` to allow IP forwarding and applying it with `sysctl -p`. NAT is configured using `iptables` to masquerade outgoing traffic from the DMZ through the firewall’s WAN interface. This allows the DMZ VM to access the internet via the firewall, which can be verified using traceroute.
+
+Services are then deployed on the `DMZ VM`. The `OpenSSH server` is installed and enabled, providing SSH access, while `Nginx` is installed and started to serve HTTP traffic. These services are tested from the firewall using SSH and curl commands. Next, firewall rules are configured to forward external traffic to the `DMZ VM`. Specifically, `iptables` PREROUTING rules are added to redirect TCP ports 22, 80, and 443 to the `DMZ VM` at `192.168.10.2`. This allows the admin computer to access the DMZ services directly via the firewall’s WAN IP address, enabling both HTTP access to the hosted `Nginx server` and SSH login to the `DMZ VM`.
+
+Finally, with the environment operational, attacks are performed using the `Kali` machine. SSH brute force attacks are attempted against the `DMZ SSH` service, and `Nmap` is used for port scanning to discover exposed services. These simulated attacks demonstrate the purpose of the setup: creating a controlled virtual lab environment to understand network segmentation, firewall routing, DMZ configuration, and basic offensive security techniques.
 
 

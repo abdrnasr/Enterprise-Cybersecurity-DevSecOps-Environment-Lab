@@ -2,17 +2,17 @@
 ## 📚 Content
 
 - [🔐 Overview](#overview)
-- [🏗️ Architecture](#architecture)
+- [🎯 Project Goals & Progress](#project-goals)
 - [📅 Project Phases](#project-phases)
   - [Phase 1 – Core Network Infrastructure](phase1_infra/readme.md)
   - [Phase 2 – Internal Web App + IAM](phase2_app_iam/readme.md)
   - [Phase 3 – Monitoring & Visibility](phase3_monitoring/readme.md)
-  - [Phase 4 – GitLab & Secrets Management Setup](phase4_gitlab_vault/readme.md)
-  - [Phase 5 – Secure CI/CD Pipeline](phase5_secure_pipeline/readme.md)
-  - [Phase 6 – Secrets Management & Access Control](phase6_secrets_access/readme.md)
-  - [Phase 7 – Attack Simulation & Detection](phase7_attack_simulation/readme.md)
+  - [Phase 4 – Attack Simulation & Detection](phase4_attack_simulation/readme.md)
+  - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab_vault/readme.md)
+  - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
+  - [Phase 7 – Secrets Management & Access Control](phase7_secrets_access/readme.md)
+- [🏗️ Architecture](#architecture)
 - [⚙️ Project Requirements](#project-requirements)
-- [🎯 Project Goals & Progress](#project-goals)
 - [🚀 How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
@@ -28,11 +28,11 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 - Secure service development and deployment
 - IAM (Identity and Access Management)
 - Centralized monitoring
+- Attack simulation
 - Secure CI/CD
 - Secrets management
-- Attack simulation
 
----
+
 
 **Primary purposes of this repository:**
 
@@ -46,6 +46,39 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
   - How rules affect internal vs. external access
   - How logging and alerting will be handled
   - How this control integrates with the overall security architecture
+---
+
+<a id="project-goals"></a>
+
+## 🎯 Project Goals & Progress
+
+- Build a **realistic enterprise security architecture** in a controlled environment
+- Implement **segmented networks** with DMZ and internal zones
+- Deploy **IAM** for user authentication and authorization
+- Implement **centralized logging and monitoring**
+- Simulate and detect **real-world cyberattacks**
+- Uses CI/CD to deliver and deploy new feature for a [custom chatting app](https://github.com/abdrnasr/Chat-App-with-Keycloak-IAM).
+- Secure **software delivery pipelines** using DevSecOps practices
+- Protect and manage **secrets** in CI/CD and infrastructure
+
+---
+
+
+<a id="project-phases"></a>
+
+## 📅 Project Phases
+
+| <span style="padding-right:20px;">Phase</span> | Title | Description |
+|-------|-------|-------------|
+| [**Phase 1**](phase1_infra/readme.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
+| [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal Next.js app with database and Keycloak IAM server, accessible via DMZ reverse proxy. |
+| [**Phase 3**](phase3_monitoring/readme.md) | Monitoring & Visibility | Deploy Wazuh + ELK Stack for SIEM & Security. Agents installed on all VMs. |
+| [**Phase 4**](phase4_attack_simulation/readme.md) | Attack Simulation & Detection | Use Kali to simulate real-world attacks and validate detection and alerting in Wazuh.
+| [**Phase 5**](phase5_gitlab_vault/readme.md) | GitLab & Secrets Management Setup | Install and configure GitLab CE for source control and CI/CD. Optional: Deploy HashiCorp Vault for secure secret storage. |
+| [**Phase 6**](phase6_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a GitLab CI/CD pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the Next.js app. |
+| [**Phase 7**](phase7_secrets_access/readme.md) | Secrets Management & Access Control | Integrate Vault (or GitLab secrets) into CI/CD. Implement RBAC, audit logging, and secure deployment workflows. |
+
+
 ---
 
 <a id="architecture"></a>
@@ -68,22 +101,6 @@ By separating functions and limiting cross-network communication through defined
 
 ---
 
-<a id="project-phases"></a>
-
-## 📅 Project Phases
-
-| <span style="padding-right:20px;">Phase</span> | Title | Description |
-|-------|-------|-------------|
-| [**Phase 1**](phase1_infra/readme.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
-| [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal Next.js app with database and Keycloak IAM server, accessible via DMZ reverse proxy. |
-| [**Phase 3**](phase3_monitoring/readme.md) | Monitoring & Visibility | Deploy Wazuh + ELK Stack for SIEM, with optional Prometheus/Grafana for metrics. Agents installed on all key VMs. |
-| [**Phase 4**](phase4_gitlab_vault/readme.md) | GitLab & Secrets Management Setup | Install and configure GitLab CE for source control and CI/CD. Optional: Deploy HashiCorp Vault for secure secret storage. |
-| [**Phase 5**](phase5_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a GitLab CI/CD pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the Next.js app. |
-| [**Phase 6**](phase6_secrets_access/readme.md) | Secrets Management & Access Control | Integrate Vault (or GitLab secrets) into CI/CD. Implement RBAC, audit logging, and secure deployment workflows. |
-| [**Phase 7**](phase7_attack_simulation/readme.md) | Attack Simulation & Detection | Use Kali to simulate real-world attacks and validate detection and alerting in Wazuh, Kibana, and Grafana dashboards. |
-
----
-
 <a id="project-requirements"></a>
 
 ## ⚙️ Project Requirements
@@ -100,19 +117,7 @@ By separating functions and limiting cross-network communication through defined
 - Internet access for package installations
 
 ---
-<a id="project-goals"></a>
 
-## 🎯 Project Goals & Progress
-
-- Build a **realistic enterprise security architecture** in a controlled environment
-- Implement **segmented networks** with DMZ and internal zones
-- Deploy **IAM** for user authentication and authorization
-- Implement **centralized logging and monitoring**
-- Secure **software delivery pipelines** using DevSecOps practices
-- Protect and manage **secrets** in CI/CD and infrastructure
-- Simulate and detect **real-world cyberattacks**
-
----
 
 <a id="how-to-use-this-repository"></a>
 
@@ -134,17 +139,30 @@ This will give you a clear understanding of **why** each phase matters and how i
 <a id="technical-readers"></a>
 
 ### Technical Readers
-First of all, I expect that readers have some proficiency with Linux, virtualizing environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult additional external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the project, not to provide exhaustive tutorials for every tool or command.
-1. Start from **Phase 1** and follow the README & lab-steps in each phase folder.
-2. Each phase includes:
-   - Overview and objectives
-   - VM/service setup
-   - Configuration details, such as:
-        - Commands
-        - Software installs
-        - Code Files
-   - Testing scenarios
-3. Document your own changes, improvements, and findings.
+First of all, I expect that readers have some proficiency with Linux, virtualized environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the project, not to provide exhaustive tutorials for every tool or command.
+
+#### Technical Summary (per phase)
+
+At the end of each phase, you will find a **Technical Summary**.  This section is for readers who want a high-level but slightly technical overview without going through every single command.  
+Each summary may include:  
+- Main Tools/Services Introduced  
+- Key Configurations or Architecture Changes  
+- Expected Outcome  
+
+In addition to the summary, there is usually a section **before** the summary that discuses some other critical points for the phase.
+#### How to Work Through the Labs
+1. Start from **Phase 1** and follow the `README.md` & `lab-steps.md` in each phase folder.  
+2. Each phase may include:
+   - Overview and Objectives  
+   - VM/Service Setup  
+   - Configuration Details  
+     - Commands  
+     - Configurations
+     - Discussions
+     - Software Installs  
+     - Code Files (mostly embedded) 
+   - Testing Scenarios  
+   - Technical Summary  
 
 ---
 <a id="license"></a>
