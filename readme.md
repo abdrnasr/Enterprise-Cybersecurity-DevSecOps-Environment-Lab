@@ -8,7 +8,7 @@
   - [Phase 2 – Internal Web App + IAM](phase2_app_iam/readme.md)
   - [Phase 3 – Monitoring & Visibility](phase3_monitoring/readme.md)
   - [Phase 4 – Attack Simulation & Detection & Response](phase4_attack_simulation/readme.md)
-  - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab_vault/readme.md)
+  - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab/readme.md)
   - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
   - [Phase 7 – Secrets Management & Access Control](phase7_secrets_access/readme.md)
 - [🏗️ Architecture](#architecture)
@@ -74,10 +74,9 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 | [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal `Next.js` app with database and `Keycloak IAM` server, accessible via DMZ reverse proxy. |
 | [**Phase 3**](phase3_monitoring/readme.md) | Monitoring & Visibility | Deploy `Wazuh` + `ELK Stack` for SIEM, Security & Logging. `Wazuh Monitoring Agents` installed on all VMs. |
 | [**Phase 4**](phase4_attack_simulation/readme.md) | Attack Simulation & Detection & Response | Implement defensive controls in `Wazuh` against a specific real-world attack, then use `Kali Linux` to execute the attack in order to validate detection, alerting, and response effectiveness.
-| [**Phase 5**](phase5_gitlab_vault/readme.md) | GitLab & Secrets Management Setup | Install and configure `GitLab CE` for source control and CI/CD. Optional: Deploy HashiCorp Vault for secure secret storage. |
+| [**Phase 5**](phase5_gitlab/readme.md) | GitLab & Secrets Management Setup | Install and configure `GitLab CE` for source control and CI/CD. |
 | [**Phase 6**](phase6_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a `GitLab CI/CD` pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the `Next.js` app. |
-| [**Phase 7**](phase7_secrets_access/readme.md) | Secrets Management & Access Control | Integrate Vault (or GitLab secrets) into CI/CD. Implement RBAC, audit logging, and secure deployment workflows. |
-
+| [**Phase 7**](phase7_operational_observability/readme.md) | Operational Observability (ELK Actualization) | Activate and focus on **operational monitoring**. Logs, metrics, and traces from the `Next.js` app, **CI/CD pipelines**, `GitLab`, `Nginx` DMZ, and hosts are ingested into `Elasticsearch` and visualized in `Kibana`. |
 
 ---
 

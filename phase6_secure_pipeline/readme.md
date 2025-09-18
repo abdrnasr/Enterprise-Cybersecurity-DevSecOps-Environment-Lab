@@ -2,7 +2,7 @@
 
 ## 🧩 Overview
 
-In Phase 6, we implement a **secure Continuous Integration / Continuous Deployment (CI/CD) pipeline** using **GitLab CI**, focused on integrating **security testing and analysis** into the software development lifecycle (SDLC). This phase leverages the GitLab instance deployed in Phase 4 and targets the **Next.js app** hosted internally.
+In Phase 6, we implement a **secure Continuous Integration / Continuous Deployment (CI/CD) pipeline** using **GitLab CI**, focused on integrating **security testing and analysis** into the software development lifecycle (SDLC). This phase leverages the GitLab instance deployed in Phase 5 and targets the **Next.js app** hosted internally. This phase also introduces **basic secrets handling** via `GitLab` CI/CD variables to keep sensitive values (DB passwords, API keys, tokens) out of code.
 
 ---
 
@@ -16,15 +16,6 @@ In Phase 6, we implement a **secure Continuous Integration / Continuous Deployme
 | **DAST Tools**   | External scanning of live app        | **OWASP ZAP CLI**, **Nikto**        |
 | **Secrets Scanning** | Detect leaked secrets in code     | **Gitleaks**, **truffleHog**        |
 | **Deployment**   | Push to internal app server          | SCP or SSH to App VM                |
-
----
-
-## 📦 Project Structure
-
-- The **Next.js application** resides in a GitLab repo
-- A `.gitlab-ci.yml` defines the secure pipeline stages
-- Scan reports are stored as artifacts or pushed to monitoring solutions
-- All builds and tests run inside isolated GitLab Runners
 
 ---
 
@@ -77,7 +68,6 @@ By the end of this phase:
 ## ✅ Next Step
 
 In **Phase 7**, we will enhance security by:
-- Integrating **Vault** or GitLab secrets management
 - Configuring access policies for environment-specific secrets
 - Logging, alerting, and reporting from CI/CD security scans
 

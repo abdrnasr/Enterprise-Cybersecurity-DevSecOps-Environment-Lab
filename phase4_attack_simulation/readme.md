@@ -101,6 +101,7 @@ We have identified that the port-scan detection we implemented has some gaps. Th
 The key point is that these trade-offs are not fixed—they can be tuned for each environment. In a high-security setup, thresholds and timeframes can be stricter with longer blocking times, while in production environments with heavy user traffic, looser thresholds and suppression techniques may be better to reduce noise. This flexibility means each organization can configure the detection to minimize the gap most relevant to its risk profile and operational needs.
 
 That said, the environment may still have other blind spots. However, the goal of this phase is to demonstrate a methodology for implementing a security control, assessing it, and confirming it functions as intended; not to eliminate every single weakness in the environment, which would require significantly more time, effort, and tooling.
+
 ---
 
 ## 📄 **For Technical Readers:**  
