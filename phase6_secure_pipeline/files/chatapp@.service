@@ -1,0 +1,35 @@
+[Unit]
+Description=Chatapp (%i)
+After=network.target
+
+[Service]
+Type=simple
+User=app
+Group=app
+
+# Common + per-instance env files
+EnvironmentFile=-/etc/chatapp/.env
+EnvironmentFile=-/etc/chatapp/%i.env
+
+# Each color has its own tree and 'current' symlink
+WorkingDirectory=/srv/chatapp/%i/current
+
+ExecStartPre=/usr/bin/test -x /home/app/.nvm/versions/node/v22.18.0/bin/node
+ExecStartPre=/usr/bin/test -d /srv/chatapp/%i/current
+
+# Non-standalone Next.js: start the built app from .next using the Next CLI
+# Adjust node path if needed (e.g., /usr/bin/node)
+ExecStart=/home/app/.nvm/versions/node/v22.18.0/bin/node ./node_modules/next/dist/bin/next start -p ${PORT}
+
+Restart=always
+RestartSec=3
+
+# Basic hardening (optional, safe defaults)
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,195 @@
+stages: ["build & release",auth, DAST,deploy]
+
+variables:
+  RSYNC_USER: "app"
+  RSYNC_HOST: "192.168.20.2"
+  APP_BASE: "/srv/chatapp"
+  RSYNC_BASE: "/srv/chatapp/release"
+  
+  GIT_STRATEGY: clone
+
+  # DO NOT FORGET to pass these variables in the CI/CD Settings, NOT HERE
+  # SEEDING_CA_CERT: $SEEDING_CA_CERT -> TYPE: FILE
+  # SEEDING_SECRET: $SEEDING_SECRET
+  # SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+
+  # KEYCLOAK_USER: $KEYCLOAK_USER
+  # KEYCLOAK_PASS: $KEYCLOAK_PASS
+  
+  TESTING_BASE_ADDRESS: "192.168.20.2:3005"
+  PRODUCTION_BASE_ADDRESS: "local.keycloak.com"
+  HOSTS_ENTRY: "192.168.10.2 ${PRODUCTION_BASE_ADDRESS}"
+
+  DMZ_USER: "dmz"
+  DMZ_HOST: "192.168.10.2"
+
+.ssh_pk_setup: &ssh_pk_setup
+  - mkdir -p ~/.ssh
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+
+.recognize_dmz_vm: &recognize_dmz_vm
+  # Recognize the dmz VM as a known host
+  - ssh-keyscan -H "$DMZ_HOST" >> ~/.ssh/known_hosts
+
+.recognize_app_vm: &recognize_app_vm
+  # Recognize the app VM as a known host
+  - ssh-keyscan -H "$RSYNC_HOST" >> ~/.ssh/known_hosts
+
+"build & release":
+  stage: "build & release"
+  image: node:22-alpine 
+  ## Cache some of the build artifacts to avoid long builds
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+      - .next/cache
+    policy: pull-push
+  variables:
+    NODE_ENV: "production"
+    NEXT_TELEMETRY_DISABLED: "1"
+  before_script:
+    # point the .npm cache to the current directory
+    - npm config set cache $CI_PROJECT_DIR/.npm --global
+    # Install deps
+    - apk add --no-cache openssh-client rsync python3
+    # Add the private key to The SSH Client
+    - *ssh_pk_setup
+    # Recognize the app VM as a known host
+    - *recognize_app_vm
+    # Generate a timestamp to be used for the folder name
+    - export TS="$(date +'%Y-%m-%dT%H-%M-%S')"
+    - echo "TIMESTAMP=$TS" >> timestamp.env
+  script:
+    ## Build 
+    - npm ci --omit=dev
+    - npm run build
+    # Load the timestamp as an env variable
+    - source timestamp.env
+    # Create a folder and sync the files
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "mkdir -p ${RSYNC_BASE}/${TIMESTAMP}"
+    - rsync -a --info=stats2 --exclude='repo_resources' --exclude='test' --exclude='.gitignore' --exclude='.gitlab-ci.yml' --exclude='README.md' --exclude='docker-compose.yml' --exclude='seeder.py' --exclude='sonar-project.properties' --exclude='vitest.config.mts' ./ ${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BASE}/${TIMESTAMP}/
+    # Create a symlink and restart the test service
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl stop chatapp@test.service || true"
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "ln -sfn ${RSYNC_BASE}/${TIMESTAMP} ${APP_BASE}/test/current"
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl start chatapp@test.service"
+    # Seed The Test DB
+    # Give 10 seconds for the server to startup and then seed it
+    - sleep 10
+    - python3 seeder_sec.py "http://${TESTING_BASE_ADDRESS}"
+  artifacts:
+    reports:
+      dotenv: timestamp.env
+
+auth-cookies:
+  stage: auth
+  image: mcr.microsoft.com/playwright/python:v1.55.0-jammy
+  needs: ["build & release"]
+
+  # These variables are used by the cookie generation script
+  # The default values should work if your setup is similar
+  # variables:
+  #  - APP_HOST=${APP_HOST:-"192.168.20.2"}
+  #  - START_URL=${START_URL:-"http://${APP_HOST}:3005/api/auth/signin"}
+  script:
+    # Add hosts entry into the container (the container cannot resolve the DNS name otherwise)
+    - echo "$HOSTS_ENTRY" >> /etc/hosts  
+    # Install dependencies
+    - python -V
+    - python -m pip install --upgrade pip
+    - pip install --no-cache-dir "playwright==1.55.0"
+    # Execute the Cookie Generation Script
+    - python extract_cookie.py
+  artifacts:
+    expire_in: 1h
+    paths:
+      - cookies.json
+      - cookies_header.txt
+
+zap_baseline:
+  stage: DAST
+  needs:
+  - job: "auth-cookies"
+    artifacts: true   
+  image: zaproxy/zap-stable
+  variables:
+    ZAP_TARGET: "http://${TESTING_BASE_ADDRESS}"
+  script:
+    # Create and move to the correct working directory
+    - mkdir -p /zap/wrk
+    # Use the cookie header from the file
+    - export ZAP_AUTH_HEADER=Cookie
+    - export ZAP_AUTH_HEADER_VALUE="$(tr -d '\n\r' < cookies_header.txt)"
+    # Optional: limit header to a site name match
+    # - export ZAP_AUTH_HEADER_SITE="192.168.20.2"
+    - zap-baseline.py -t "$ZAP_TARGET" -I -r "zap-baseline-report.html" -J "zap-baseline-report.json" -w "zap-baseline-report.md"
+    - cp -r /zap/wrk/* ./
+  artifacts:
+    when: always
+    paths:
+      - zap-baseline-report.html
+      - zap-baseline-report.json
+      - zap-baseline-report.md
+
+deploy:
+  stage: deploy
+  image: alpine:3.22
+  # needs:
+  #- job: "build & release" # It provides the timestamp in the timestamp.env artifact
+  #  artifacts: true
+  # - job: "zap_baseline" 
+  before_script:
+    # Add hosts entry into the container
+    - echo "$HOSTS_ENTRY" >> /etc/hosts
+    # Install deps
+    - apk add --no-cache openssh-client python3
+    # Add the private key to The SSH Client
+    - *ssh_pk_setup
+
+    # We will interact with both VMs, APP VM & DMZ VM, so they need to be recognized
+    # Recognize the app VM as a known host
+    - *recognize_app_vm
+    # Recognize the DMZ VM as a known host
+    - *recognize_dmz_vm
+
+    # At this point, we do not require the test service anymore, so we shut it down
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl stop chatapp@test.service"
+  script:
+    # Load the timestamp as an env variable
+    # - source timestamp.env
+    - echo "Found TIMESTAMP=$TIMESTAMP"
+    # Deploy in the APP VM and return the chosen color
+    - color=$(ssh ${RSYNC_USER}@${RSYNC_HOST} "python3 ${APP_BASE}/scripts/deploy.py ${TIMESTAMP}")
+    # Decide the port from the color
+    - if [ "$color" = "blue" ]; then export APP_PORT=3001; else export APP_PORT=3002; fi
+    # Print chosen color, and the internal address of the service
+    - export INTERNAL_SERVICE_ADDRESS="http://${RSYNC_HOST}:${APP_PORT}"
+    - >
+      echo "Deploying - ${color} ${TIMESTAMP}: at ${INTERNAL_SERVICE_ADDRESS}"
+
+    # Reconfigure Nginx to point to the new deployed version
+    - ssh ${DMZ_USER}@${DMZ_HOST} "sudo /etc/nginx/templates/reload-nginx.sh ${APP_PORT}"
+    # Wait for 10 seconds and seed the production database
+    - sleep 10
+
+    # Seeding can either be done using HTTP or HTTPS
+    # If you choose HTTPs, then you need to: 
+    # - Use the DNS name for the PRODUCTION_BASE_ADDRESS, not the IP because it will not work
+    #   - PRODUCTION_BASE_ADDRESS="local.keycloak.com"
+    # - Add hosts entry into the container
+    #   - echo "$HOSTS_ENTRY" >> /etc/hosts  
+    # - Add the certificate of Nginx as a File variable
+    #   - SEEDING_CA_CERT: $SEEDING_CA_CERT -> Define in the CI/CD pipeline settings
+
+    - python3 seeder_sec.py "https://${PRODUCTION_BASE_ADDRESS}"
+
+    # If HTTP is used:
+    # You need to identify the port of deployment
+    # - blue -> 3001
+    # - green -> 3002
+    # The port value is found in the APP_PORT variable, but you must include it in seeding URL
+    # SEEDING_ADDRESS="${RSYNC_HOST}:${APP_PORT}" -> E.g. "192.168.20.2:3001", when deployed in blue
+    # - python3 seeder_sec.py "http://${SEEDING_ADDRESS}"

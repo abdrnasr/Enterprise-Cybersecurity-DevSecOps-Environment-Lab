@@ -1,0 +1,23 @@
+stages: [auth]
+
+variables:
+  # KEYCLOAK_USER: $KEYCLOAK_USER -> Define in the CI/CD settings
+  # KEYCLOAK_PASS: $KEYCLOAK_PASS -> Define in the CI/CD settings
+  PRODUCTION_BASE_URL: "local.keycloak.com"
+  HOSTS_ENTRY: "192.168.10.2 ${PRODUCTION_BASE_URL}"
+
+auth-cookies:
+  stage: auth
+  image: mcr.microsoft.com/playwright/python:v1.55.0-jammy
+  script:
+    # Add hosts entry into the container (the container cannot resolve the address otherwise)
+    - echo "$HOSTS_ENTRY" >> /etc/hosts    ## point the cache to the current directory
+    - python -V
+    - python -m pip install --upgrade pip
+    - pip install --no-cache-dir "playwright==1.55.0"
+    - python extract_cookie.py
+  artifacts:
+    expire_in: 1h
+    paths:
+      - cookies.json
+      - cookies_header.txt

@@ -1,0 +1,49 @@
+stages: [auth, DAST]
+
+variables:
+  # KEYCLOAK_USER: $KEYCLOAK_USER -> Define in the CI/CD settings
+  # KEYCLOAK_PASS: $KEYCLOAK_PASS -> Define in the CI/CD settings
+  PRODUCTION_BASE_URL: "local.keycloak.com"
+  HOSTS_ENTRY: "192.168.10.2 ${PRODUCTION_BASE_URL}"
+
+auth-cookies:
+  stage: auth
+  image: mcr.microsoft.com/playwright/python:v1.55.0-jammy
+  script:
+    # Add hosts entry into the container (the container cannot resolve the address otherwise)
+    - echo "$HOSTS_ENTRY" >> /etc/hosts    ## point the cache to the current directory
+    - python -V
+    - python -m pip install --upgrade pip
+    - pip install --no-cache-dir "playwright==1.55.0"
+    - python extract_cookie.py
+  artifacts:
+    expire_in: 1h
+    paths:
+      - cookies.json
+      - cookies_header.txt
+
+zap_baseline:
+  stage: DAST
+  needs: ["auth-cookies"]  # Allows acquiring the cookie files from the auth stage
+  image: zaproxy/zap-stable
+  variables:
+    ZAP_TARGET: "http://192.168.20.2:3005"
+  script:
+    - export ORG_WORK_DIR="$(pwd)"
+    # Create and move to the correct working directory
+    - mkdir -p /zap/wrk
+    # Use the cookie header from the file
+    - export ZAP_AUTH_HEADER=Cookie
+    - export ZAP_AUTH_HEADER_VALUE="$(tr -d '\n\r' < cookies_header.txt)"
+    # Optional: limit header to a site name match
+    # - export ZAP_AUTH_HEADER_SITE="192.168.20.2"
+    - zap-baseline.py -t "$ZAP_TARGET" -I -r "zap-baseline-report.html" -J "zap-baseline-report.json" -w "zap-baseline-report.md"
+    - cp -r /zap/wrk/* "$ORG_WORK_DIR"/
+    # Stop the test service - Add the required environment variables
+    # - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl start chatapp@test.service"
+  artifacts:
+    when: always
+    paths:
+      - zap-baseline-report.html
+      - zap-baseline-report.json
+      - zap-baseline-report.md

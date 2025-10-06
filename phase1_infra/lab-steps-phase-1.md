@@ -139,7 +139,8 @@ For example, **enp0s8** is assigned:
 Essentially, this configures this interface to connect to the DMZ network, to which the `DMZ VM` will also be connected.
 
 - Finally, you execute this command to apply the changes to the system:
-```basg
+
+```bash
 sudo netplan apply
 ```
 

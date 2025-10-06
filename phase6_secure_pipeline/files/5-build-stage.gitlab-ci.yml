@@ -1,0 +1,66 @@
+stages: ["build & release"]
+
+variables:
+
+  # Depends on the APP VM
+  RSYNC_USER: "app"
+  RSYNC_HOST: "192.168.20.2"
+  APP_BASE: "/srv/chatapp"
+  RSYNC_BASE: "/srv/chatapp/release"
+  
+  GIT_STRATEGY: clone
+
+  # DO NOT FORGET to pass these variables in the CI/CD Settings, NOT HERE
+  # SEEDING_SECRET: $SEEDING_SECRET
+  # SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+
+  # The base address of the testing server
+  TESTING_BASE_URL: "192.168.20.2:3005"
+
+"build & release":
+  stage: "build & release"
+  image: node:22-alpine
+
+  ## Cache some of the build artifacts to avoid long builds
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm
+      - .next/cache
+    policy: pull-push
+  before_script:
+    - npm config set cache $CI_PROJECT_DIR/.npm --global
+    # Install deps
+    - apk add --no-cache openssh-client rsync python3
+    # Add the private key to The SSH Client
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    # Recognize the app VM as a known host
+    - ssh-keyscan -H "$RSYNC_HOST" >> ~/.ssh/known_hosts
+    # Generate a timestamp to be used for the folder name
+    - export TS="$(date +'%Y-%m-%dT%H-%M-%S')"
+    - echo "TIMESTAMP=$TS" >> variables.env
+  script:
+    ## Build 
+    - npm ci --omit=dev
+    - npm run build
+    # load the timestamp as an env variable
+    - source variables.env
+    # Create a folder and sync the files
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "mkdir -p ${RSYNC_BASE}/${TIMESTAMP}"
+    - rsync -a --info=stats2 --exclude='repo_resources' --exclude='test' --exclude='.gitignore' --exclude='.gitlab-ci.yml' --exclude='README.md' --exclude='docker-compose.yml' --exclude='seeder.py' --exclude='sonar-project.properties' --exclude='vitest.config.mts' ./ ${RSYNC_USER}@${RSYNC_HOST}:${RSYNC_BASE}/${TIMESTAMP}/
+    # Create a symlink and restart the test service
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl stop chatapp@test.service || true"
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "ln -sfn ${RSYNC_BASE}/${TIMESTAMP} ${APP_BASE}/test/current"
+    - ssh ${RSYNC_USER}@${RSYNC_HOST} "sudo systemctl start chatapp@test.service"
+    # Seeding
+    # Give 10 seconds for the server to startup and then seed it
+    - sleep 10
+    - python3 seeder_sec.py "http://${TESTING_BASE_URL}"
+
+  artifacts:
+    reports:
+      dotenv: variables.env

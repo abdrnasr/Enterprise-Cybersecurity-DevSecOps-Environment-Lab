@@ -19,7 +19,7 @@ Phase 1 lays the foundation for our project with **three core virtual machines**
 ## 🎯 Phase Goals
 By the end of Phase 1:
 - All 3 VMs are running, positioned, & networked correctly.
-- Firewall routes appropriate traffic between the DMZ VM and the external network.
+- Firewall routes appropriate traffic between the `DMZ VM` and the external network.
 - Reverse proxy and SSH beacon are accessible for external users, including users, admins and attackers.
 - Demonstrated risks of **no monitoring or detection**.
 

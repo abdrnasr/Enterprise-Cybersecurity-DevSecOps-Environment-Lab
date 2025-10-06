@@ -1,0 +1,103 @@
+stages:
+  - secrets-scan
+  - dependency-scan
+  - test-coverage
+  - sast-scan # New Stage Added
+
+variables:
+  GITLEAKS_REPORT: "gitleaks-report.json"
+  GIT_STRATEGY: "clone"        # always do a fresh clone (no repo cache reuse)
+  GIT_CHECKOUT: "true"         # ensure working tree is checked out
+  GIT_DEPTH: "0"               # full history (set to "1" if you only need the tip)
+  GIT_CLEAN_FLAGS: "-ffdx"     # wipe untracked + ignored files before checkout
+  # New Variable Added
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+
+gitleaks_scan:
+  stage: secrets-scan
+  image:
+    name: zricethezav/gitleaks:v8.18.4 
+    entrypoint: [""]   
+  rules:
+    # Run on all events on the default branch
+    # - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - when: never ##### DISABLED #####
+  script:
+    # Basic scan of the repository working tree
+    - gitleaks detect --source . --report-format json --report-path "$GITLEAKS_REPORT" --exit-code 1
+  artifacts:
+    when: always
+    expire_in: 7 days
+    paths:
+      - $GITLEAKS_REPORT
+
+dependency_scan:
+  stage: dependency-scan
+  image: node:lts-alpine
+  rules:
+    - when: never ##### DISABLED #####
+  before_script:
+    - npm ci --ignore-scripts
+  script:
+    # Fail if High or Critical vulns found
+    - npm audit --audit-level=high
+  artifacts:
+    when: always
+    paths:
+       - npm-audit.json
+    expire_in: 7 days
+  after_script:
+    # Since the initial scan can fail, we need to do another scan that does not fail. 
+    # This scan will produce an output file that we can persist
+    - npm audit --json > npm-audit.json || true 
+
+test-coverage:
+  image: node:lts
+  stage: test-coverage
+  rules:
+    - when: never ##### DISABLED #####
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+      - .next/
+    policy: pull-push
+
+  variables:
+    NPM_CONFIG_CACHE: "$CI_PROJECT_DIR/.npm"
+
+  before_script:
+    - npm ci
+
+  script:
+    - npm run coverage:json
+
+  artifacts:
+    when: on_success
+    expire_in: 1 week
+    paths:
+      - coverage/coverage-final.json
+
+# New Stage Added
+build-sonar:
+  stage: sast-scan
+  image: 
+    name: sonarsource/sonar-scanner-cli:11
+    entrypoint: [""]
+  cache:
+    policy: pull-push
+    key: "sonar-cache-$CI_COMMIT_REF_SLUG"
+    paths:
+      - "${SONAR_USER_HOME}/cache"
+      - sonar-scanner/
+      
+  script: 
+  - sonar-scanner -Dsonar.host.url="${SONAR_HOST_URL}"
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_BRANCH == 'master'
+    - if: $CI_COMMIT_BRANCH == 'main'
+    - if: $CI_COMMIT_BRANCH == 'develop'
