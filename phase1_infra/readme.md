@@ -1,13 +1,13 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 1: Core Network Infrastructure
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 1: Core Network Infrastructure
 
-## 📌 Overview
+## Overview
 Phase 1 lays the foundation for our project with **three core virtual machines** that mimic a segmented enterprise network:
 - **Firewall** – Acts as the gateway between networks.
 - **DMZ Server** – Public-facing with limited services.
 - **External Attacker** – Simulates real-world cyber threats.
 
 ---
-## 🧱 Virtual Machines Used
+## Virtual Machines Used
 
 | VM Name        | Role                | Description                                                                 |
 |-----------------|---------------------|-----------------------------------------------------------------------------|
@@ -16,7 +16,7 @@ Phase 1 lays the foundation for our project with **three core virtual machines**
 | **DMZ VM**        | Public-facing Server| Hosts SSH server and `Nginx` reverse proxy services. |
 
 ---
-## 🎯 Phase Goals
+## Phase Goals
 By the end of Phase 1:
 - All 3 VMs are running, positioned, & networked correctly.
 - Firewall routes appropriate traffic between the `DMZ VM` and the external network.
@@ -25,7 +25,7 @@ By the end of Phase 1:
 
 ---
 
-## 🧪 Testing Scenarios
+## Testing Scenarios
 
 - Benign User:
   - Admins can connect to the environment and manage it via the DMZ server
@@ -36,7 +36,7 @@ By the end of Phase 1:
 
 ---
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 
 ### Benign Users
 #### Admin can connect to the DMZ server and control it.
@@ -74,15 +74,15 @@ This means that we can now start providing services to external users. For examp
 With our current setup, both of these attacks went undetected because there is no logging, alerting, or monitoring. This will be addressed in later stages, however.
 
 ---
-## ⚠️ Known Limitations (Addressed in Later Phases)
+## Known Limitations (Addressed in Later Phases)
 - No monitoring/logging/alerting yet, so attacks go undetected.
 - No brute-force detection, which can degrade the environment's efficiency by consuming network bandwidth, processing power, and compete with other legitimate users
 - No real services being provided by the network yet.
 
 ---
-## 📄 **For Technical Readers:**  
+## **For Technical Readers:**  
 See **[Lab Steps – Phase 1](lab-steps-phase-1.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 ---
-## ✅ Next Step
+## Next Step
 Move to **[Phase 2 – Internal Web App + IAM Integration](../phase2_app_iam/readme.md)**, where we will install and configure an Identity and Access Management (IAM) system, and will deploy a `Next.js` app with `MySQL` as the database.

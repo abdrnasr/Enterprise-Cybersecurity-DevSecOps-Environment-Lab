@@ -1,6 +1,6 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 3: Monitoring and Visibility
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 3: Monitoring and Visibility
 
-## 🧩 Overview
+## Overview
 
 In Phase 3, we introduce centralized **monitoring, alerting, and visibility** to our infrastructure by deploying a dedicated **Monitoring VM**. This phase is essential for detecting attacks, system anomalies, and suspicious behaviors that went unnoticed in previous stages.
 
@@ -8,7 +8,7 @@ This monitoring stack simulates what real Monitoring Engineers and Security Oper
 
 ---
 
-## 🧱 New Virtual Machines Used
+## New Virtual Machines Used
 
 | VM Name           | Role                     | Description                                                             |
 |-------------------|--------------------------|-------------------------------------------------------------------------|
@@ -19,7 +19,7 @@ This monitoring stack simulates what real Monitoring Engineers and Security Oper
 
 ---
 
-## 🧱 Agent Configuration
+## Agent Configuration
 
 | VM                  | Agent Installed | Logs Collected                                    |
 |---------------------|-----------------|--------------------------------------------------|
@@ -32,7 +32,7 @@ All agents forward logs to the `Wazuh Manager`, which stores and process the log
 
 ---
 
-## 🎯 Phase Goals
+## Phase Goals
 
 By the end of this phase, we will have:
 - A fully functioning **SIEM/XDR solution** `(Wazuh)` for attack detection  
@@ -45,9 +45,9 @@ By the end of this phase, we will have:
 
 ---
 
-## 🛠️ Services Setup
+## Services Setup
 
-### ✅ Core Tools
+### Core Tools
 
 - **Wazuh (XDR / SIEM)**
   - Collects and analyzes logs from all connected agents
@@ -62,7 +62,7 @@ By the end of this phase, we will have:
   - Used for phases 5 onward 
 ---
 
-## 🧪 Testing Scenarios
+## Testing Scenarios
 
 - Use the `Kali VM` to:
   - Run `nmap` scans against `firewall VM`
@@ -72,7 +72,7 @@ By the end of this phase, we will have:
 
 ---
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 The premise of this lab phase is to build a comprehensive security monitoring solution across the environment to detect the attacks that we were unable to identify in earlier phases. 
 
 ### Wazuh XDR & SIEM 
@@ -166,13 +166,13 @@ In addition to `Wazuh`, we installed `Elasticsearch` and `Kibana` on another VM,
 
 ---
 
-## ⚠️ Known Limitations (Addressed Later)
+## Known Limitations (Addressed Later)
 - We are able to detect the attacks, but our not respond. We should prepare automatic response playbooks to respond automatically, timely, predictably, and correctly.
 - The default Wazuh configuration does not alert on some logs, and so attacks may go undetected (blind spots). Thus, the default configuration should be altered for each environment to match its threat landscape.
 - Application Layer Attacks, such as SQLi and XSS, were not tested (and are not the focus of the project).
 ---
 
-## 🔒 Security Design
+## Security Design
 
 - Wazuh Manager accepts logs only from authenticated agents  
 - All of the monitoring services (ELK Stack & Wazuh) are **local-only** (not exposed to external IPs) and only accessible from the DMZ.
@@ -180,11 +180,11 @@ In addition to `Wazuh`, we installed `Elasticsearch` and `Kibana` on another VM,
 
 ---
 
-## 📄 **For Technical Readers:**  
+## **For Technical Readers:**  
 See **[Lab Steps – Phase 3](lab-steps-phase-3.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 ---
 
-## ✅ Next Step
+## Next Step
 
 In phase 4, we will focus on **one real-world attack: port scanning**. Building on the blind spot identified earlier, we will first implement defensive measures in Wazuh. We will then execute the port scan to **document its traces across the monitoring tools**. Based on the observed behavior, we will develop **custom detection rules** and **configure response actions** to ensure that similar attacks are properly detected, alerted, and mitigated in the future.

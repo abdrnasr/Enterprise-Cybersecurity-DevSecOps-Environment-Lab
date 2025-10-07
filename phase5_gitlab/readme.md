@@ -1,6 +1,6 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 5: GitLab CI/CD & Secret Management
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 5: GitLab CI/CD & Secret Management
 
-## 🧩 Overview
+## Overview
 
 In Phase 5, we introduce the infrastructure required for implementing DevSecOps workflows, starting with the installation and configuration of `GitLab CE` for source control and CI/CD.
 
@@ -8,7 +8,7 @@ This phase does not yet implement a CI/CD pipeline but prepares the necessary to
 
 ---
 
-## 🧱 Virtual Machines Used
+## Virtual Machines Used
 
 | VM Name          | Role                   | Description                                                                  |
 |------------------|------------------------|------------------------------------------------------------------------------|
@@ -17,9 +17,9 @@ This phase does not yet implement a CI/CD pipeline but prepares the necessary to
 
 ---
 
-## 🛠️ Services Setup
+## Services Setup
 
-### ✅ GitLab CE (Core)
+### GitLab CE (Core)
 - GitLab Community Edition installed and accessible internally (via reverse proxy)
 - Hosted in the internal network, accessible via:
   - `http://192.168.20.4`
@@ -30,7 +30,7 @@ This phase does not yet implement a CI/CD pipeline but prepares the necessary to
 
 ---
 
-## 🎯 Phase Goals
+## Phase Goals
 
 By the end of this phase:
 
@@ -44,7 +44,7 @@ By the end of this phase:
 
 ---
 
-## 🧪 Testing Scenarios
+## Testing Scenarios
 
 - Access `GitLab` from Admin via: `http://192.168.20.4`
 - Delegate authentication to `Keycloak IAM`, and login with it to `GitLab`
@@ -53,7 +53,7 @@ By the end of this phase:
 
 ---
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 
 In this phase, we have prepared the environment to securely execute CI/CD pipelines by installing and configuring `GitLab`. `Gitlab` is a CI/CD server that allows us to automatically execute pipeline. These pipeline can automatically build, test, configure, run, and deploy our code, thereby improving delivery speed, consistency, reliability, and correctness. 
 
@@ -95,7 +95,7 @@ For instance, if the `SEEDING_SECRET` was leaked, we can easily assign a new `SE
 
 Overall, we completed the setup of the tooling needed for more advanced CI/CD pipelines, as we will be doing in the next phase.
 
-## 🔒 Security Design
+## Security Design
 
 | Feature                         | Description                                                                 |
 |----------------------------------|-----------------------------------------------------------------------------|
@@ -105,11 +105,11 @@ Overall, we completed the setup of the tooling needed for more advanced CI/CD pi
 
 ---
 
-## 📄 **For Technical Readers:**  
+## **For Technical Readers:**  
 See **[Lab Steps – Phase 5](lab-steps-phase-5.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 ---
-## ✅ Next Step
+## Next Step
 
 In **Phase 6**, we will implement secure CI/CD pipelines using GitLab, integrating:
 - SAST (Static Application Security Testing)

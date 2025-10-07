@@ -1,6 +1,6 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 4: Attack Simulation & Detection & Response
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 4: Attack Simulation & Detection & Response
 
-## 🧩 Overview
+## Overview
 
 In Phase 4, we move into **active attack simulation, detection, and response** to validate the resilience of our environment and the effectiveness of our monitoring stack. We will launch **port scan attacks** from the `Kali` attacker VM against various components of the project and evaluate:
 
@@ -12,7 +12,7 @@ This phase represents the **"red team vs. blue team"** part of the project, test
 
 ---
 
-## 🧱 Virtual Machines Involved
+## Virtual Machines Involved
 
 | VM Name              | Role                        |
 |----------------------|-----------------------------|
@@ -23,7 +23,7 @@ This phase represents the **"red team vs. blue team"** part of the project, test
 
 ---
 
-## 🎯 Phase Goals
+## Phase Goals
 
 By the end of this phase:
 - We will have performed **threat modelling**, identified the important assets in the network, and prioritized assets.
@@ -37,7 +37,7 @@ By the end of this phase:
     - analyze the detection & response
 ---
 
-## 🔍 Attack Detection & Response Goals
+## Attack Detection & Response Goals
 
 For this part of the lab, we will avoid scattershot, superficial attack simulations. Instead, we focus on a single representative technique - port scanning - and treat it end-to-end. Therefore, for the **port scanning attack** we will:
 
@@ -55,7 +55,7 @@ In addition to the above, we will
 
 ---
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 
 In this phase, we analyzed the environment, its assets, and protections, and then focused on detecting and responding to **port scans**. [Port scanning](https://attack.mitre.org/techniques/T1046/) is usually one of the first steps that attackers do in the early stages of an attack to identify the services that they could attack. For example, in this project, we have Nginx & SSH Servers accessible to the public. Thus, a port scan attack aims to identify all such services.
 
@@ -94,7 +94,7 @@ The implemented automatic response is simple yet, proved to be effective at stop
 The time it takes for a response to be triggered after an attack is detected is 3 seconds. This means the attacker has only a 3-second window to act before being blocked. Once the response is in place, the attacker can no longer communicate with our environment for a period of time. Within such a short window, it is extremely difficult for the attacker to gather any useful information. In effect, our response significantly reduces the likelihood of a successful attack, deterring adversaries and preventing compromise. With this improvement, we have gone from being unable to detect a port scan attack to being able to detect, respond to, and prevent it.
 
 ---
-## ⚠️ Known Limitations 
+## Known Limitations 
 
 We have identified that the port-scan detection we implemented has some gaps. These gaps mainly come from the trade-offs between detection accuracy, storage requirements, performance, and false positive reduction. 
 
@@ -104,11 +104,11 @@ That said, the environment may still have other blind spots. However, the goal o
 
 ---
 
-## 📄 **For Technical Readers:**  
+## **For Technical Readers:**  
 See **[Lab Steps – Phase 4](lab-steps-phase-4.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 ---
 
-## ✅ Next Step
+## Next Step
 
 In **Phase 5**, we will start working with DevOps & DevSecOps portion of the project.

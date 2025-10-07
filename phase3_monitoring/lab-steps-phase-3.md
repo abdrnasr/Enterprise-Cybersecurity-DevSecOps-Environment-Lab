@@ -1,13 +1,13 @@
 # NOTICE
-In this phase, we will create two VMs. Only **one** will be used at the same time. One VM instance will be used to deploy Wazuh Manager, Indexer, and Dashboard. These services are quite heavy to download on a single VM especially if you have limited resources on your host machine. For this reason, the Wazuh machine will only be used for phases 3 & 4. In phase 3, we set up and configure Wazuh across the environment and experiment with its alerting capability. Then in phase 4, we test its responding capability, in addition to alerting.
+In this phase, we will create two VMs. Only **one** will be used at the same time. One VM instance will be used to deploy `Wazuh Manager`, Indexer, and Dashboard. These services are quite heavy to download on a single VM especially if you have limited resources on your host machine. For this reason, the `Wazuh` machine will only be used for phases 3 & 4. In phase 3, we set up and configure `Wazuh` across the environment and experiment with its alerting capability. Then in phase 4, we test its responding capability, in addition to alerting.
 
 In the second VM, we will install Elasticsearch, Logstash (optional), and Kibana. This VM will be used for further stages when we need to configure monitoring. This will allow us to experiment with both monitoring stacks, one for security monitoring, and the other for general monitoring needs.
 
-While we could use our ELK stack with Wazuh, this will not be an optimal choice in terms of configuration. Wazuh Indexer & Dashboard come pre-configured for security detection. On the other hand, we have to manually configure our own dashboards, log forwarding, and data processing. In addition, Wazuh provides a lot of security detection features on its own stack, which may not be easily replicated on our own ELK setup. Thus, we resort to separate both stacks on TWO VMs.
+While we could use our ELK stack with `Wazuh`, this will not be an optimal choice in terms of configuration. `Wazuh` Indexer & Dashboard come pre-configured for security detection. On the other hand, we have to manually configure our own dashboards, log forwarding, and data processing. In addition, `Wazuh` provides a lot of security detection features on its own stack, which may not be easily replicated on our own ELK setup. Thus, we resort to separate both stacks on TWO VMs.
 
 ---
 # VMs Setup
-Here, you should create two VMs as mentioned and connect them to the internal network. For the ELK stack VM, I chose the IP Address **192.168.20.5**, and the Wazuh Manager VM will have **192.168.20.6**.
+Here, you should create two VMs as mentioned and connect them to the internal network. For the ELK stack VM, I chose the IP Address **192.168.20.5**, and the `Wazuh` Manager VM will have **192.168.20.6**.
 ## Image Downloading
 Similar to the previous phases, we can use the same ISO image we downloaded to initialize both VMs.
 ## Setup 
@@ -46,7 +46,7 @@ This VM is only intended to be used within the network. To access it, you should
 Now, you should have your first VM ready to download install ELK Stack. After installing both Elasticsearch, Logstash & Kibana, you should turn off the VM as we will not be using in this phase or the next one.
 
 ## Elasticsearch
-Elasticsearch is a powerful search and analytics engine that enables us to store, search, and analyze large volumes of data in near real time. In a lab environment this is particularly useful because it allows us to simulate how production systems handle logs, metrics, and security events. By installing and configuring Elasticsearch on our VM we create a central hub where different components such as application logs, web server data, or security alerts from tools like Wazuh can be ingested and indexed. This setup helps us practice building ingestion pipelines and visualizations and also gives us hands-on experience with managing clusters, securing access, and tuning performance in a controlled environment.
+Elasticsearch is a powerful search and analytics engine that enables us to store, search, and analyze large volumes of data in near real time. In a lab environment this is particularly useful because it allows us to simulate how production systems handle logs, metrics, and security events. By installing and configuring Elasticsearch on our VM we create a central hub where different components such as application logs, web server data, or security alerts from tools like `Wazuh` can be ingested and indexed. This setup helps us practice building ingestion pipelines and visualizations and also gives us hands-on experience with managing clusters, securing access, and tuning performance in a controlled environment.
 
 ## Install Elasticsearch Using APT
 After initializing the VM, we can now install Elasticsearch. For your VMs, please follow the appropriate [guide](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/installing-elasticsearch#installation-order) from their website. Here, we will use APT to install Elasticsearch directly.
@@ -207,19 +207,18 @@ Now we have access to Elasticsearch, which we will use at later stages.
 Currently, we do not need to install Logstash. We can install later if there was a need for extended data transformation.
 
 ---
-# Wazuh VM
+# `Wazuh` VM
 
 For this part, the other VM should be used. The first VM should be shutdown to preserve the system resources. This VM will only be used for phases 3 & 4, and will later not be used due to limited system resources on my computer. 
 
-**Ensure that you provide sufficient disk space for this VM, as Wazuh is quite large. Not providing enough space could lead to failure due to limited disk space.**
+**Ensure that you provide sufficient disk space for this VM, as `Wazuh` is quite large. Not providing enough space could lead to failure due to limited disk space.**
 
-## Wazuh
+## `Wazuh`
 
-Wazuh is an open-source security platform designed for security monitoring, threat detection, and incident response across endpoints, servers, and cloud environments. It provides a unified solution with features like log collection and analysis, file integrity monitoring, vulnerability detection, intrusion detection, malware detection, and compliance reporting. Wazuh uses its own stack, including the Wazuh Manager, Indexer, and Dashboard, to collect, analyze, and visualize security data, giving organizations centralized visibility and control over their infrastructure. This makes it a powerful tool for detecting threats, enforcing security policies, and improving overall security posture.
+`Wazuh` is an open-source security platform designed for security monitoring, threat detection, and incident response across endpoints, servers, and cloud environments. It provides a unified solution with features like log collection and analysis, file integrity monitoring, vulnerability detection, intrusion detection, malware detection, and compliance reporting. `Wazuh` uses its own stack, including the `Wazuh` Manager, Indexer, and Dashboard, to collect, analyze, and visualize security data, giving organizations centralized visibility and control over their infrastructure. This makes it a powerful tool for detecting threats, enforcing security policies, and improving overall security posture.
 
-## Wazuh Core Installation
-The core parts of Wazuh are the Manager, Indexer, and Dashboard. These will all be installed on the monitoring machine. Theses components can be installed separately, but for simplicity, we will download the all-in-one version. This version installs all of these components directly onto the VM without the need download and configure each component.
-
+## `Wazuh` Core Installation
+The core parts of `Wazuh` are the Manager, Indexer, and Dashboard. These will all be installed on the monitoring machine. Theses components can be installed separately, but for simplicity, we will download the all-in-one version. This version installs all of these components directly onto the VM without the need download and configure each component.
 
 
 The following command downloads a script and initializes all the components needed onto the system:
@@ -236,8 +235,8 @@ If everything went well, a message should appear in the CLI with the username/pa
     Password: "Generated_password"
 ```
 
-## Accessing Wazuh
-To access Wazuh, you should establish an SSH proxy through the DMZ, as we covered previously. Once established, visit https://192.168.20.6.
+## Accessing `Wazuh`
+To access `Wazuh`, you should establish an SSH proxy through the DMZ, as we covered previously. Once established, visit https://192.168.20.6.
 
 <p align="center">
   <img src="images/Waz_login.png">
@@ -250,10 +249,10 @@ You can use the same credentials that you have been presented with after the ins
 </p>
 
 
-## Wazuh Agents Deployment
-Currently, Wazuh's manager is running without anything to monitor. However, to monitor the other computers, you need to install Wazuh Agents on every other VM. The process of deploying agents is quite straightforward. 
+## `Wazuh` Agents Deployment
+Currently, `Wazuh`'s manager is running without anything to monitor. However, to monitor the other computers, you need to install `Wazuh` Agents on every other VM. The process of deploying agents is quite straightforward. 
 
-- First, navigate to the home page of Wazuh, and press **"Deploy new agent"**.
+- First, navigate to the home page of `Wazuh`, and press **"Deploy new agent"**.
 <p align="center">
   <img src="images/Waz_DeployAgent.png">
 </p>
@@ -264,7 +263,7 @@ Currently, Wazuh's manager is running without anything to monitor. However, to m
   <img src="images/Waz_OS_Select.png">
 </p>
 
-- Then, you type the Server IP address of Wazuh. It is located at 192.168.20.6. The agents will connect to this IP to register themselves as agents.
+- Then, you type the Server IP address of `Wazuh`. It is located at 192.168.20.6. The agents will connect to this IP to register themselves as agents.
 
 <p align="center">
   <img src="images/Waz_IPServer.png">
@@ -311,7 +310,7 @@ Since enrollment is not password protected by default, this will disallow any ne
 ---
 # Attack Detection Test
 
-Now that we have deployed Wazuh across the environment, we can start to test its detection capability.
+Now that we have deployed `Wazuh` across the environment, we can start to test its detection capability.
 
 ## Nmap Scan Detection
 
@@ -332,12 +331,12 @@ To attack, we open Kali VM and port scan the **external IP** of the firewall.
 </p>
 
 ### After the attack
-Now we go back to check Wazuh for the generated alerts.
+Now we go back to check `Wazuh` for the generated alerts.
 <p align="center">
   <img src="images/Waz_After_Nmap.png">
 </p>
 
-As we can see, the number of alerts generated has noticeably increased **within the attacks duration**. This suggests that Wazuh maybe managed to capture that attack. We need to dig into the alerts deeper to find more.
+As we can see, the number of alerts generated has noticeably increased **within the attacks duration**. This suggests that `Wazuh` maybe managed to capture that attack. We need to dig into the alerts deeper to find more.
 
 ### Medium Severity Alert Investigation
 Viewing the medium severity alerts, we can see the following new alert:
@@ -346,103 +345,7 @@ Viewing the medium severity alerts, we can see the following new alert:
   <img src="images/Waz_After_Nmap_Med.png">
 </p>
 
-<details>
-  <summary>JSON OF THE ALERT</summary>
-
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.04",
-  "_id": "s-ywE5kBSD0SqL96PlQW",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.10.2",
-      "name": "dmz",
-      "id": "001"
-    },
-    "previous_output": "192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /HNAP1 HTTP/1.1\" 404 8088 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /evox/about HTTP/1.1\" 404 8097 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /.git/HEAD HTTP/1.1\" 404 8096 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"POST /sdk HTTP/1.1\" 404 8086 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /nmaplowercheck1756971937 HTTP/1.1\" 404 8107 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"TJXG / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"",
-    "manager": {
-      "name": "mon"
-    },
-    "data": {
-      "protocol": "OPTIONS",
-      "srcip": "192.168.33.8",
-      "id": "400",
-      "url": "/"
-    },
-    "rule": {
-      "firedtimes": 1,
-      "mail": false,
-      "level": 10,
-      "pci_dss": [
-        "6.5",
-        "11.4"
-      ],
-      "tsc": [
-        "CC6.6",
-        "CC7.1",
-        "CC8.1",
-        "CC6.1",
-        "CC6.8",
-        "CC7.2",
-        "CC7.3"
-      ],
-      "description": "Multiple web server 400 error codes from same source ip.",
-      "groups": [
-        "web",
-        "accesslog",
-        "web_scan",
-        "recon"
-      ],
-      "mitre": {
-        "technique": [
-          "Vulnerability Scanning"
-        ],
-        "id": [
-          "T1595.002"
-        ],
-        "tactic": [
-          "Reconnaissance"
-        ]
-      },
-      "id": "31151",
-      "nist_800_53": [
-        "SA.11",
-        "SI.4"
-      ],
-      "frequency": 14,
-      "gdpr": [
-        "IV_35.7.d"
-      ]
-    },
-    "location": "/var/log/nginx/access.log",
-    "decoder": {
-      "name": "web-accesslog"
-    },
-    "id": "1756971940.163466",
-    "full_log": "192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"",
-    "timestamp": "2025-09-04T07:45:40.129+0000"
-  },
-  "fields": {
-    "timestamp": [
-      "2025-09-04T07:45:40.129Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1756971940129
-  ]
-}
-```
-</details>
+Full JSON Of The Alert: [mid-alert-nmap.json](result/mid-alert-nmap.json)
 
 ### Alert Interpretation
 ####  Where was the log generated?
@@ -473,7 +376,7 @@ The requests included:
   - Web app endpoints
   - Misconfigured `.git` repositories
   - Debug/SDK paths
-- Wazuh Rule **31151** flagged this activity as:
+- `Wazuh` Rule **31151** flagged this activity as:
   - **Group:** `web_scan`, `recon`
   - **MITRE:** T1595.002 (Vulnerability Scanning / Reconnaissance)
 
@@ -486,7 +389,7 @@ A normal user visiting our site has no interest in interacting with any of these
 - `POST /sdk`
 - `GET /nmaplowercheck...`
 
-Knowing this, Wazuh flagged the request for these paths as a plausible port scan by `nmap`.
+Knowing this, `Wazuh` flagged the request for these paths as a plausible port scan by `nmap`.
 
 #### The Other Low Severity Alerts
 <p align="center">
@@ -545,114 +448,7 @@ By adding **rule.groups: sshd**, we can list all rule detections related to SSH.
 
 Looking at the details of these alerts, we see they are all of the type "Failed password for dmz from 192.168.33.8 port 40132 ssh2". This means that the password was accepted and tested against the stored one.
 
-<details>
-  <summary>JSON OF THE ALERT</summary>
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.04",
-  "_id": "TuxWFJkBSD0SqL968lX8",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "predecoder": {
-      "hostname": "dmz",
-      "program_name": "sshd",
-      "timestamp": "Sep 04 10:47:41"
-    },
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.10.2",
-      "name": "dmz",
-      "id": "001"
-    },
-    "manager": {
-      "name": "mon"
-    },
-    "data": {
-      "srcip": "192.168.33.8",
-      "dstuser": "dmz",
-      "srcport": "40132"
-    },
-    "rule": {
-      "mail": false,
-      "level": 5,
-      "hipaa": [
-        "164.312.b"
-      ],
-      "pci_dss": [
-        "10.2.4",
-        "10.2.5"
-      ],
-      "tsc": [
-        "CC6.1",
-        "CC6.8",
-        "CC7.2",
-        "CC7.3"
-      ],
-      "description": "sshd: authentication failed.",
-      "groups": [
-        "syslog",
-        "sshd",
-        "authentication_failed"
-      ],
-      "nist_800_53": [
-        "AU.14",
-        "AC.7"
-      ],
-      "gdpr": [
-        "IV_35.7.d",
-        "IV_32.2"
-      ],
-      "firedtimes": 8,
-      "mitre": {
-        "technique": [
-          "Password Guessing",
-          "SSH"
-        ],
-        "id": [
-          "T1110.001",
-          "T1021.004"
-        ],
-        "tactic": [
-          "Credential Access",
-          "Lateral Movement"
-        ]
-      },
-      "id": "5760",
-      "gpg13": [
-        "7.1"
-      ]
-    },
-    "location": "journald",
-    "decoder": {
-      "parent": "sshd",
-      "name": "sshd"
-    },
-    "id": "1756982863.197535",
-    "full_log": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2",
-    "timestamp": "2025-09-04T10:47:43.143+0000"
-  },
-  "fields": {
-    "timestamp": [
-      "2025-09-04T10:47:43.143Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ],
-    "rule.groups": [
-      "@opensearch-dashboards-highlighted-field@sshd@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1756982863143
-  ]
-}
-```
-</details>
+JSON OF THE ALERT: [low-alert-brute.json](result/low-alert-brute.json)
 
 These alerts correspond to the throttled attack, because the passwords were accepted and tested.
 
@@ -663,189 +459,9 @@ Next, we investigate the new medium alerts.
   <img src="images/Waz_SSH_Medium_Alerts.png">
 </p>
 
-<details>
-  <summary>JSON OF THE ALERTS</summary>
-
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.04",
-  "_id": "TexWFJkBSD0SqL968lX8",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "predecoder": {
-      "hostname": "dmz",
-      "program_name": "sshd",
-      "timestamp": "Sep 04 10:47:41"
-    },
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.10.2",
-      "name": "dmz",
-      "id": "001"
-    },
-    "previous_output": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2\nSep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2\nSep 04 10:47:40 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:40 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2",
-    "data": {
-      "srcip": "192.168.33.8",
-      "dstuser": "dmz",
-      "srcport": "40132"
-    },
-    "manager": {
-      "name": "mon"
-    },
-    "rule": {
-      "mail": false,
-      "level": 10,
-      "hipaa": [
-        "164.312.b"
-      ],
-      "pci_dss": [
-        "11.4",
-        "10.2.4",
-        "10.2.5"
-      ],
-      "tsc": [
-        "CC6.1",
-        "CC6.8",
-        "CC7.2",
-        "CC7.3"
-      ],
-      "description": "sshd: brute force trying to get access to the system. Authentication failed.",
-      "groups": [
-        "syslog",
-        "sshd",
-        "authentication_failures"
-      ],
-      "nist_800_53": [
-        "SI.4",
-        "AU.14",
-        "AC.7"
-      ],
-      "frequency": 8,
-      "gdpr": [
-        "IV_35.7.d",
-        "IV_32.2"
-      ],
-      "firedtimes": 1,
-      "mitre": {
-        "technique": [
-          "Brute Force"
-        ],
-        "id": [
-          "T1110"
-        ],
-        "tactic": [
-          "Credential Access"
-        ]
-      },
-      "id": "5763"
-    },
-    "location": "journald",
-    "decoder": {
-      "parent": "sshd",
-      "name": "sshd"
-    },
-    "id": "1756982861.196376",
-    "full_log": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2",
-    "timestamp": "2025-09-04T10:47:41.151+0000"
-  },
-  "fields": {
-    "timestamp": [
-      "2025-09-04T10:47:41.151Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1756982861151
-  ]
-}
-```
-
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.04",
-  "_id": "SexWFJkBSD0SqL968lX8",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "predecoder": {
-      "hostname": "dmz",
-      "program_name": "sshd",
-      "timestamp": "Sep 04 10:47:40"
-    },
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.10.2",
-      "name": "dmz",
-      "id": "001"
-    },
-    "manager": {
-      "name": "mon"
-    },
-    "data": {
-      "srcip": "192.168.33.8",
-      "dstuser": "dmz",
-      "srcport": "40130"
-    },
-    "rule": {
-      "firedtimes": 1,
-      "mail": false,
-      "level": 8,
-      "description": "Maximum authentication attempts exceeded.",
-      "groups": [
-        "syslog",
-        "sshd",
-        "authentication_failed"
-      ],
-      "mitre": {
-        "technique": [
-          "Brute Force"
-        ],
-        "id": [
-          "T1110"
-        ],
-        "tactic": [
-          "Credential Access"
-        ]
-      },
-      "id": "5758",
-      "gpg13": [
-        "7.1"
-      ]
-    },
-    "location": "journald",
-    "decoder": {
-      "parent": "sshd",
-      "name": "sshd"
-    },
-    "id": "1756982861.194619",
-    "full_log": "Sep 04 10:47:40 dmz sshd[3874]: error: maximum authentication attempts exceeded for dmz from 192.168.33.8 port 40130 ssh2 [preauth]",
-    "timestamp": "2025-09-04T10:47:41.140+0000"
-  },
-  "fields": {
-    "timestamp": [
-      "2025-09-04T10:47:41.140Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1756982861140
-  ]
-}
-```
-</details>
+JSON ALERTS:
+- MID ALERT:  [mid-alert-brute.json](result/mid-alert-brute.json)
+- LOW ALERT:  [low-alert-brute-2.json](result/low-alert-brute-2.json)
 
 Here, we see two new alerts generated, one is about exceeding the maximum authentication attempts, and the other is about the **multiple failed password attempts**. Both of these correspond to the same throttled attack. So, where are the alerts of the other attacks?
 
@@ -858,9 +474,9 @@ Investigating the actual logs that sshd produces on the DMZ machine, we see two 
 | <p  align="center">Unthrottled</p> |
 | <img src="images/DMZ_SSHD_logs_unth.png">|
 
-- The throttled SSH traffic is accepted without issues by sshd and we know this by "Failed Password" attempts. That's, hydra provided passwords and the ssh checked the stored one. Those "Failed Password" logs are parsed by the agent and are logged as alerts to Wazuh's Dashboard.
+- The throttled SSH traffic is accepted without issues by sshd and we know this by "Failed Password" attempts. That's, hydra provided passwords and the ssh checked the stored one. Those "Failed Password" logs are parsed by the agent and are logged as alerts to `Wazuh`'s Dashboard.
 
-- For unthrottled traffic, there are no passwords being tested, and the conncetions established do not actually provide a password. This is signified by the "Connection closed by..." and the fact that there are no password attempts with each connection. Wazuh is not configured by default to alert on "Connection closed by..." logs, and so we see no alerts about these in the dashboard.
+- For unthrottled traffic, there are no passwords being tested, and the conncetions established do not actually provide a password. This is signified by the "Connection closed by..." and the fact that there are no password attempts with each connection. `Wazuh` is not configured by default to alert on "Connection closed by..." logs, and so we see no alerts about these in the dashboard.
 
 ---
 ## Critical File Tampering
@@ -874,7 +490,7 @@ Linux has many critical files in the filesystem that are of attackers interest. 
 </p>
 
 ### Speeding Up The File Integrity Check
-By default, wazuh agents check the files' integrity every 12 hours. This could be long for our testing, so we need to speed it up. To speed it up, change the configurations of the agent on **DMZ VM**. The configurations are stored in **/var/ossec/etc/ossec.conf**. This change is not needed for all the agents in the network, and we will only do it for the DMZ VM.
+By default, `Wazuh` agents check the files' integrity every 12 hours. This could be long for our testing, so we need to speed it up. To speed it up, change the configurations of the agent on **DMZ VM**. The configurations are stored in **/var/ossec/etc/ossec.conf**. This change is not needed for all the agents in the network, and we will only do it for the DMZ VM.
 
 ```bash
 sudo nano /var/ossec/etc/ossec.conf
@@ -922,140 +538,11 @@ And on the file integrity alert's window, we see that a new file was modified.
   <img src="images/Waz_FIMDashboard.png">
 </p>
 
-### 
 <p align="center">
   <img src="images/Waz_FIM_Alert.png">
 </p>
 
-<details>
-  <summary>JSON OF THE ALERT</summary>
-
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.04",
-  "_id": "7uzrFJkBSD0SqL96AVXx",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "syscheck": {
-      "size_before": "985",
-      "uname_after": "root",
-      "mtime_after": "2025-09-04T13:28:36",
-      "inode_before": 304845,
-      "size_after": "952",
-      "gid_after": "42",
-      "md5_before": "0b38ab27816ff5c6182f385fc408e3ca",
-      "sha256_before": "12c3b34201acb8e623127df111c78905a00c0574685f004c3763243b7a40ac93",
-      "mtime_before": "2025-08-28T20:40:03",
-      "mode": "scheduled",
-      "path": "/etc/shadow",
-      "sha1_after": "f12776cea369d91da8606d1c831716d11a996f9d",
-      "changed_attributes": [
-        "size",
-        "inode",
-        "mtime",
-        "md5",
-        "sha1",
-        "sha256"
-      ],
-      "gname_after": "shadow",
-      "uid_after": "0",
-      "perm_after": "rw-r-----",
-      "event": "modified",
-      "md5_after": "d929937ef1abac59654e3b24f857fc93",
-      "sha1_before": "5e9abfcb746c6de11255e79c1c7fbb9bf814a96f",
-      "sha256_after": "4731be0a7e8b3de7d98b4bc77183d8dfbb9500480f5b378d9500267ec0567176",
-      "inode_after": 264138
-    },
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.10.2",
-      "name": "dmz",
-      "id": "001"
-    },
-    "manager": {
-      "name": "mon"
-    },
-    "rule": {
-      "mail": false,
-      "level": 7,
-      "pci_dss": [
-        "11.5"
-      ],
-      "hipaa": [
-        "164.312.c.1",
-        "164.312.c.2"
-      ],
-      "tsc": [
-        "PI1.4",
-        "PI1.5",
-        "CC6.1",
-        "CC6.8",
-        "CC7.2",
-        "CC7.3"
-      ],
-      "description": "Integrity checksum changed.",
-      "groups": [
-        "ossec",
-        "syscheck",
-        "syscheck_entry_modified",
-        "syscheck_file"
-      ],
-      "nist_800_53": [
-        "SI.7"
-      ],
-      "gdpr": [
-        "II_5.1.f"
-      ],
-      "firedtimes": 1,
-      "mitre": {
-        "technique": [
-          "Stored Data Manipulation"
-        ],
-        "id": [
-          "T1565.001"
-        ],
-        "tactic": [
-          "Impact"
-        ]
-      },
-      "id": "550",
-      "gpg13": [
-        "4.11"
-      ]
-    },
-    "location": "syscheck",
-    "decoder": {
-      "name": "syscheck_integrity_changed"
-    },
-    "id": "1756992558.238238",
-    "full_log": "File '/etc/shadow' modified\nMode: scheduled\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '985' to '952'\nOld modification time was: '1756413603', now it is '1756992516'\nOld inode was: '304845', now it is '264138'\nOld md5sum was: '0b38ab27816ff5c6182f385fc408e3ca'\nNew md5sum is : 'd929937ef1abac59654e3b24f857fc93'\nOld sha1sum was: '5e9abfcb746c6de11255e79c1c7fbb9bf814a96f'\nNew sha1sum is : 'f12776cea369d91da8606d1c831716d11a996f9d'\nOld sha256sum was: '12c3b34201acb8e623127df111c78905a00c0574685f004c3763243b7a40ac93'\nNew sha256sum is : '4731be0a7e8b3de7d98b4bc77183d8dfbb9500480f5b378d9500267ec0567176'\n",
-    "timestamp": "2025-09-04T13:29:18.950+0000"
-  },
-  "fields": {
-    "syscheck.mtime_after": [
-      "2025-09-04T13:28:36.000Z"
-    ],
-    "syscheck.mtime_before": [
-      "2025-08-28T20:40:03.000Z"
-    ],
-    "timestamp": [
-      "2025-09-04T13:29:18.950Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1756992558950
-  ]
-}
-```
-</details>
+Full JSON ALERT: [fim-alert.json](result/fim-alert.json)
 
 The alert basically tells us that the MD5, SHA1, & SHA256 of the **/etc/shadow** have changed, indicating that the file was changed. If this change was not done by an authorized person, then there might be an attacker tampering with this machine.
 
@@ -1065,7 +552,7 @@ The alert basically tells us that the MD5, SHA1, & SHA256 of the **/etc/shadow**
 ## Limited Nmap Scan Visibility
 While we have managed to detect the nmap scan, that was only successful because we had a running Nginx server AND because we used aggressive port scan (-A). That is, even though we scanned the **entire port range (-p- option)**, we were only able to detect the port scan across Nginx (ports 80/443). So, which other ports did we scan? We simply do not know (from the alerts), and that's a blind spot. The reason for this behavior is that the firewall is not configured to **log anything**. Thus, port scans are not entirely detected.
 
-To resolve this, we could simply configure the firewall to log ALL traffic, instead of only rejecting/dropping the packets. We will then need to configure Wazuh agent too to forward these logs to the Wazuh Manager. This way, we will be able to identify all the ports that were scanned and even correlate it with the other port scans. This, however, can introduce a lot of alerts, and so we might only keep logs for a set of ports that are critical for the enterprise.
+To resolve this, we could simply configure the firewall to log ALL traffic, instead of only rejecting/dropping the packets. We will then need to configure `Wazuh` agent too to forward these logs to the `Wazuh` Manager. This way, we will be able to identify all the ports that were scanned and even correlate it with the other port scans. This, however, can introduce a lot of alerts, and so we might only keep logs for a set of ports that are critical for the enterprise.
 
 Even if we introduce an Network-Based Intrusion Detection System (NIDS) in the network, like Snort or Suricata, it will still fail to see the port scan because the traffic is not forwarded internally to any port other than (22/80/443).
 
@@ -1075,7 +562,7 @@ Many enterprise-level firewalls come fit with the ability to easily log and prod
 The current security monitoring system we have only monitors hosts and does NOT monitor any raw network traffic. That's the alerts are generated by the logs issued by the programs on the host, rather than raw network traffic. Network traffic monitoring is important because it can allow us to detect lateral movement, connections with suspecious IP and DNS names, and to scan for attack signatures within the network traffic.
  
 ## Default Configurations
-As we saw with ssh attack, some of the logs — "Connection closed by..." — were not detected because Wazuh is not configured to alert upon these. You may, however, want to capture these logs, which you can do by creating your own custom rules with Wazuh. 
+As we saw with ssh attack, some of the logs — "Connection closed by..." — were not detected because `Wazuh` is not configured to alert upon these. You may, however, want to capture these logs, which you can do by creating your own custom rules with `Wazuh`. 
 
 ### Is it actually a risk?
 However, the passwords were not tested against system, so why should we even bother? If passwords are not being tested, then were is the risk? The problem with this reasoning is that this SSH traffic does not come free. Each brute-force connection may clog the network with a large amounts of uneccessary traffic. Thus, instead of sitting idle, we can instruct the firewall to block or throttle this IP. This should reduce the amount of network traffic heading to the DMZ, which is  
@@ -1109,7 +596,7 @@ The above Nginx config could be used by the attacker to redirect our users to hi
 The integrity check is execute by default every 12 hours. This could be enough time for an attacker to make changes to the critical files, make harm to the internal system, and recover the file to its original state. Thus, the shorter the time the better. This indeed comes with the cost of increased processing.
 
 ## Responding to The Alerts
-While we have detected these attacks that we attempted, we have not really responded to any of them. Wazuh provide a module called active-response which allows us to respond automatically and manually, depending on our configuration. We will look into this in the next phase.
+While we have detected these attacks that we attempted, we have not really responded to any of them. `Wazuh` provide a module called active-response which allows us to respond automatically and manually, depending on our configuration. We will look into this in the next phase.
 
 ---
 # Technical Summary

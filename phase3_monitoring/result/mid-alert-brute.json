@@ -1,0 +1,98 @@
+{
+  "_index": "wazuh-alerts-4.x-2025.09.04",
+  "_id": "TexWFJkBSD0SqL968lX8",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "predecoder": {
+      "hostname": "dmz",
+      "program_name": "sshd",
+      "timestamp": "Sep 04 10:47:41"
+    },
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.10.2",
+      "name": "dmz",
+      "id": "001"
+    },
+    "previous_output": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2\nSep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2\nSep 04 10:47:40 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:40 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2\nSep 04 10:47:38 dmz sshd[3874]: Failed password for dmz from 192.168.33.8 port 40130 ssh2",
+    "data": {
+      "srcip": "192.168.33.8",
+      "dstuser": "dmz",
+      "srcport": "40132"
+    },
+    "manager": {
+      "name": "mon"
+    },
+    "rule": {
+      "mail": false,
+      "level": 10,
+      "hipaa": [
+        "164.312.b"
+      ],
+      "pci_dss": [
+        "11.4",
+        "10.2.4",
+        "10.2.5"
+      ],
+      "tsc": [
+        "CC6.1",
+        "CC6.8",
+        "CC7.2",
+        "CC7.3"
+      ],
+      "description": "sshd: brute force trying to get access to the system. Authentication failed.",
+      "groups": [
+        "syslog",
+        "sshd",
+        "authentication_failures"
+      ],
+      "nist_800_53": [
+        "SI.4",
+        "AU.14",
+        "AC.7"
+      ],
+      "frequency": 8,
+      "gdpr": [
+        "IV_35.7.d",
+        "IV_32.2"
+      ],
+      "firedtimes": 1,
+      "mitre": {
+        "technique": [
+          "Brute Force"
+        ],
+        "id": [
+          "T1110"
+        ],
+        "tactic": [
+          "Credential Access"
+        ]
+      },
+      "id": "5763"
+    },
+    "location": "journald",
+    "decoder": {
+      "parent": "sshd",
+      "name": "sshd"
+    },
+    "id": "1756982861.196376",
+    "full_log": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2",
+    "timestamp": "2025-09-04T10:47:41.151+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2025-09-04T10:47:41.151Z"
+    ]
+  },
+  "highlight": {
+    "manager.name": [
+      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1756982861151
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "_index": "wazuh-alerts-4.x-2025.09.04",
+  "_id": "TuxWFJkBSD0SqL968lX8",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "predecoder": {
+      "hostname": "dmz",
+      "program_name": "sshd",
+      "timestamp": "Sep 04 10:47:41"
+    },
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.10.2",
+      "name": "dmz",
+      "id": "001"
+    },
+    "manager": {
+      "name": "mon"
+    },
+    "data": {
+      "srcip": "192.168.33.8",
+      "dstuser": "dmz",
+      "srcport": "40132"
+    },
+    "rule": {
+      "mail": false,
+      "level": 5,
+      "hipaa": [
+        "164.312.b"
+      ],
+      "pci_dss": [
+        "10.2.4",
+        "10.2.5"
+      ],
+      "tsc": [
+        "CC6.1",
+        "CC6.8",
+        "CC7.2",
+        "CC7.3"
+      ],
+      "description": "sshd: authentication failed.",
+      "groups": [
+        "syslog",
+        "sshd",
+        "authentication_failed"
+      ],
+      "nist_800_53": [
+        "AU.14",
+        "AC.7"
+      ],
+      "gdpr": [
+        "IV_35.7.d",
+        "IV_32.2"
+      ],
+      "firedtimes": 8,
+      "mitre": {
+        "technique": [
+          "Password Guessing",
+          "SSH"
+        ],
+        "id": [
+          "T1110.001",
+          "T1021.004"
+        ],
+        "tactic": [
+          "Credential Access",
+          "Lateral Movement"
+        ]
+      },
+      "id": "5760",
+      "gpg13": [
+        "7.1"
+      ]
+    },
+    "location": "journald",
+    "decoder": {
+      "parent": "sshd",
+      "name": "sshd"
+    },
+    "id": "1756982863.197535",
+    "full_log": "Sep 04 10:47:41 dmz sshd[3876]: Failed password for dmz from 192.168.33.8 port 40132 ssh2",
+    "timestamp": "2025-09-04T10:47:43.143+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2025-09-04T10:47:43.143Z"
+    ]
+  },
+  "highlight": {
+    "manager.name": [
+      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
+    ],
+    "rule.groups": [
+      "@opensearch-dashboards-highlighted-field@sshd@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1756982863143
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "_index": "wazuh-alerts-4.x-2025.09.04",
+  "_id": "7uzrFJkBSD0SqL96AVXx",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "syscheck": {
+      "size_before": "985",
+      "uname_after": "root",
+      "mtime_after": "2025-09-04T13:28:36",
+      "inode_before": 304845,
+      "size_after": "952",
+      "gid_after": "42",
+      "md5_before": "0b38ab27816ff5c6182f385fc408e3ca",
+      "sha256_before": "12c3b34201acb8e623127df111c78905a00c0574685f004c3763243b7a40ac93",
+      "mtime_before": "2025-08-28T20:40:03",
+      "mode": "scheduled",
+      "path": "/etc/shadow",
+      "sha1_after": "f12776cea369d91da8606d1c831716d11a996f9d",
+      "changed_attributes": [
+        "size",
+        "inode",
+        "mtime",
+        "md5",
+        "sha1",
+        "sha256"
+      ],
+      "gname_after": "shadow",
+      "uid_after": "0",
+      "perm_after": "rw-r-----",
+      "event": "modified",
+      "md5_after": "d929937ef1abac59654e3b24f857fc93",
+      "sha1_before": "5e9abfcb746c6de11255e79c1c7fbb9bf814a96f",
+      "sha256_after": "4731be0a7e8b3de7d98b4bc77183d8dfbb9500480f5b378d9500267ec0567176",
+      "inode_after": 264138
+    },
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.10.2",
+      "name": "dmz",
+      "id": "001"
+    },
+    "manager": {
+      "name": "mon"
+    },
+    "rule": {
+      "mail": false,
+      "level": 7,
+      "pci_dss": [
+        "11.5"
+      ],
+      "hipaa": [
+        "164.312.c.1",
+        "164.312.c.2"
+      ],
+      "tsc": [
+        "PI1.4",
+        "PI1.5",
+        "CC6.1",
+        "CC6.8",
+        "CC7.2",
+        "CC7.3"
+      ],
+      "description": "Integrity checksum changed.",
+      "groups": [
+        "ossec",
+        "syscheck",
+        "syscheck_entry_modified",
+        "syscheck_file"
+      ],
+      "nist_800_53": [
+        "SI.7"
+      ],
+      "gdpr": [
+        "II_5.1.f"
+      ],
+      "firedtimes": 1,
+      "mitre": {
+        "technique": [
+          "Stored Data Manipulation"
+        ],
+        "id": [
+          "T1565.001"
+        ],
+        "tactic": [
+          "Impact"
+        ]
+      },
+      "id": "550",
+      "gpg13": [
+        "4.11"
+      ]
+    },
+    "location": "syscheck",
+    "decoder": {
+      "name": "syscheck_integrity_changed"
+    },
+    "id": "1756992558.238238",
+    "full_log": "File '/etc/shadow' modified\nMode: scheduled\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '985' to '952'\nOld modification time was: '1756413603', now it is '1756992516'\nOld inode was: '304845', now it is '264138'\nOld md5sum was: '0b38ab27816ff5c6182f385fc408e3ca'\nNew md5sum is : 'd929937ef1abac59654e3b24f857fc93'\nOld sha1sum was: '5e9abfcb746c6de11255e79c1c7fbb9bf814a96f'\nNew sha1sum is : 'f12776cea369d91da8606d1c831716d11a996f9d'\nOld sha256sum was: '12c3b34201acb8e623127df111c78905a00c0574685f004c3763243b7a40ac93'\nNew sha256sum is : '4731be0a7e8b3de7d98b4bc77183d8dfbb9500480f5b378d9500267ec0567176'\n",
+    "timestamp": "2025-09-04T13:29:18.950+0000"
+  },
+  "fields": {
+    "syscheck.mtime_after": [
+      "2025-09-04T13:28:36.000Z"
+    ],
+    "syscheck.mtime_before": [
+      "2025-08-28T20:40:03.000Z"
+    ],
+    "timestamp": [
+      "2025-09-04T13:29:18.950Z"
+    ]
+  },
+  "highlight": {
+    "manager.name": [
+      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1756992558950
+  ]
+}

@@ -1,12 +1,12 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 6: Secure CI/CD Pipeline
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 6: Secure CI/CD Pipeline
 
-## 🧩 Overview
+## Overview
 
 In Phase 6, we implement a **secure Continuous Integration / Continuous Deployment (CI/CD) pipeline** using **GitLab CI**, focused on integrating **security testing and analysis** into the software development lifecycle (SDLC). This phase leverages the `GitLab` instance deployed in Phase 5 and targets the **Next.js app** hosted internally. It also introduces a **blue-green deployment** strategy to enable zero-downtime releases and instant rollback by alternating traffic between two identical environments (`blue` and `green`). This phase also continues with the concept of **secrets handling** via `GitLab` CI/CD variables to keep sensitive values (DB passwords, API keys, tokens) out of code.
 
 ---
 
-## 🔐 CI/CD Pipeline Stages
+## CI/CD Pipeline Stages
 
 | Stage                   | Objective / Purpose                                                                | Tools / Implementation                                                                |
 | ----------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -20,7 +20,7 @@ In Phase 6, we implement a **secure Continuous Integration / Continuous Deployme
 
 ---
 
-## 🎯 Phase Goals
+## Phase Goals
 
 By the end of this phase:
 
@@ -35,7 +35,7 @@ By the end of this phase:
 
 ---
 
-## 🧪 Testing Scenarios
+## Testing Scenarios
 
 - Push a clean commit
     - Expect full pipeline success and deployment
@@ -62,7 +62,7 @@ By the end of this phase:
     - The problematic code must be refactored or removed.
     - Once SonarQube reports no critical/blocker issues, the pipeline should succeed.
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 
 We have introduced `GitLab` in the last stage for CI/CD, and in this part, we use it to build an End-to-End DevSecOps pipeline, including various essential security testing and scanning processes. 
 
@@ -168,7 +168,7 @@ Here, the code violated two conditions: it had one software issue (must be 0), a
 
 ---
 
-## 🔒 Security Design
+## Security Design
 
 | Security Layer        | Description                                                                                              |
 | --------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -183,12 +183,12 @@ Here, the code violated two conditions: it had one software issue (must be 0), a
 
 ---
 
-## 📄 **For Technical Readers:**  
+## **For Technical Readers:**  
 See **[Lab Steps – Phase 6](lab-steps-phase-6.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 ---
 
-## ✅ Next Step
+## Next Step
 
 In **Phase 7**, we will enhance the environment by:
 - Logging, alerting, and reporting from CI/CD security scans

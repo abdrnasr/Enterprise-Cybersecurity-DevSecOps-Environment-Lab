@@ -1,0 +1,91 @@
+{
+  "_index": "wazuh-alerts-4.x-2025.09.04",
+  "_id": "s-ywE5kBSD0SqL96PlQW",
+  "_version": 1,
+  "_score": null,
+  "_source": {
+    "input": {
+      "type": "log"
+    },
+    "agent": {
+      "ip": "192.168.10.2",
+      "name": "dmz",
+      "id": "001"
+    },
+    "previous_output": "192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /HNAP1 HTTP/1.1\" 404 8088 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /evox/about HTTP/1.1\" 404 8097 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /.git/HEAD HTTP/1.1\" 404 8096 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"POST /sdk HTTP/1.1\" 404 8086 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"GET /nmaplowercheck1756971937 HTTP/1.1\" 404 8107 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"TJXG / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"\n192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"",
+    "manager": {
+      "name": "mon"
+    },
+    "data": {
+      "protocol": "OPTIONS",
+      "srcip": "192.168.33.8",
+      "id": "400",
+      "url": "/"
+    },
+    "rule": {
+      "firedtimes": 1,
+      "mail": false,
+      "level": 10,
+      "pci_dss": [
+        "6.5",
+        "11.4"
+      ],
+      "tsc": [
+        "CC6.6",
+        "CC7.1",
+        "CC8.1",
+        "CC6.1",
+        "CC6.8",
+        "CC7.2",
+        "CC7.3"
+      ],
+      "description": "Multiple web server 400 error codes from same source ip.",
+      "groups": [
+        "web",
+        "accesslog",
+        "web_scan",
+        "recon"
+      ],
+      "mitre": {
+        "technique": [
+          "Vulnerability Scanning"
+        ],
+        "id": [
+          "T1595.002"
+        ],
+        "tactic": [
+          "Reconnaissance"
+        ]
+      },
+      "id": "31151",
+      "nist_800_53": [
+        "SA.11",
+        "SI.4"
+      ],
+      "frequency": 14,
+      "gdpr": [
+        "IV_35.7.d"
+      ]
+    },
+    "location": "/var/log/nginx/access.log",
+    "decoder": {
+      "name": "web-accesslog"
+    },
+    "id": "1756971940.163466",
+    "full_log": "192.168.33.8 - - [04/Sep/2025:07:45:39 +0000] \"OPTIONS / HTTP/1.1\" 400 5 \"-\" \"Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)\"",
+    "timestamp": "2025-09-04T07:45:40.129+0000"
+  },
+  "fields": {
+    "timestamp": [
+      "2025-09-04T07:45:40.129Z"
+    ]
+  },
+  "highlight": {
+    "manager.name": [
+      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
+    ]
+  },
+  "sort": [
+    1756971940129
+  ]
+}

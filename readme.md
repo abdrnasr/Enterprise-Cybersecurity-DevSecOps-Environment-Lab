@@ -1,26 +1,26 @@
-#  Enterprise Cybersecurity & DevSecOps Environment Project 🔐
-## 📚 Content
+#  Enterprise Cybersecurity & DevSecOps Environment Project
+## Content
 
-- [🔐 Overview](#overview)
-- [🎯 Project Goals & Progress](#project-goals)
-- [📅 Project Phases](#project-phases)
+- [Overview](#overview)
+- [Project Goals & Progress](#project-goals)
+- [Project Phases](#project-phases)
   - [Phase 1 – Core Network Infrastructure](phase1_infra/readme.md)
   - [Phase 2 – Internal Web App + IAM](phase2_app_iam/readme.md)
   - [Phase 3 – Monitoring & Visibility](phase3_monitoring/readme.md)
   - [Phase 4 – Attack Simulation & Detection & Response](phase4_attack_simulation/readme.md)
   - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab/readme.md)
   - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
-  - [Phase 7 – Secrets Management & Access Control](phase7_secrets_access/readme.md)
-- [🏗️ Architecture](#architecture)
-- [⚙️ Project Requirements](#project-requirements)
-- [🚀 How to Use This Repository](#how-to-use-this-repository)
+  - [Phase 7 – Secrets Management & Access Control](phase7_operational_observability/readme.md)
+- [Architecture](#architecture)
+- [Project Requirements](#project-requirements)
+- [How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
-- [📜 License](#license)
+- [License](#license)
 
 <a id="overview"></a>
 
-## 📌 Overview
+## Overview
 
 This repository documents a complete, multi-phase **Cybersecurity, Software Engineering, and DevSecOps Project** designed to simulate a realistic enterprise environment. The project covers:
 
@@ -31,8 +31,6 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 - Attack simulation
 - Secure CI/CD
 - Secrets management
-
-
 
 **Primary purposes of this repository:**
 
@@ -50,7 +48,7 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 
 <a id="project-goals"></a>
 
-## 🎯 Project Goals & Progress
+## Project Goals & Progress
 
 - Build a **realistic enterprise security architecture** in a controlled environment
 - Implement **segmented networks** with DMZ and internal zones
@@ -66,7 +64,7 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 
 <a id="project-phases"></a>
 
-## 📅 Project Phases
+## Project Phases
 
 | <span style="padding-right:20px;">Phase No.</span> | Title | Description |
 |-------|-------|-------------|
@@ -82,10 +80,10 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 
 <a id="architecture"></a>
 
-## 🏗️ Architecture
+## Architecture
 
 <p align="center">
-  <img width=500 src="repo_resources/Network_Setup.png" alt="Project Logo" >
+  <img width=500 src="repo_resources/NetworkDiagram_V2.png" alt="Project Logo" >
 </p>
 
 This architecture represents a balanced approach between simplicity and security, making it practical and effective for the scope of this project.
@@ -102,12 +100,12 @@ By separating functions and limiting cross-network communication through defined
 
 <a id="project-requirements"></a>
 
-## ⚙️ Project Requirements
+## Project Requirements
 
 - Virtualization software: `VirtualBox`, `VMware`, or `Proxmox` (Here, `VitrualBox` will be used )
 - Minimum hardware recommendation:
   - **CPU:** 8 cores
-  - **RAM:** 16 GB (32 GB preferred for smoother multi-VM operation)
+  - **RAM:** 24 GB (32 GB preferred for smoother multi-VM operation)
   - **Disk:** 200 GB free space
 - Networking: Ability to configure host-only, NAT, and bridged adapters on the virtualization software
 - Virtual OS Images:
@@ -117,22 +115,20 @@ By separating functions and limiting cross-network communication through defined
 
 ---
 
-
 <a id="how-to-use-this-repository"></a>
 
-## 🚀 How to Use This Repository
+## How to Use This Repository
 
 <a id="non-technical-readers"></a>
 
 ### Non-Technical Readers
-In each section of the project, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase.   You don’t need to follow the technical steps; instead, view the `readme` files of each phase that focus on:
+In each section of the project, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase. You don’t need to follow the technical steps; instead, view the `readme` files of each phase that focus on:
 - The **before vs. after** state of the environment
 - The **problems addressed** in each phase
 - The **improvements in security posture**
 - Any **visual results** such as dashboard screenshots, architecture diagrams, or attack/detection examples
 
 This will give you a clear understanding of **why** each phase matters and how it contributes to building a secure, enterprise-like environment.
-
 
 ---
 <a id="technical-readers"></a>
@@ -165,8 +161,10 @@ In addition to the summary, there is usually a section **before** the summary th
    - Technical Summary  
 
 ---
+
 <a id="license"></a>
-## 📜 License
+
+##  License
 
 This project is for educational and research purposes. Use responsibly and do not deploy insecure configurations to production environments.
 

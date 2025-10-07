@@ -1,6 +1,6 @@
-# 🔐 Enterprise Cybersecurity & DevSecOps Environment Project – Phase 2: Internal Web App + IAM Integration
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 2: Internal Web App + IAM Integration
 
-## 🧩 Overview
+## Overview
 
 In Phase 2, we expand the lab environment by introducing two new **internal virtual machines**. These VMs represent realistic internal services commonly found in enterprise infrastructures:
 
@@ -11,7 +11,7 @@ This setup gives our infrastructure something real to protect and monitor in the
 
 ---
 
-## 🧱 Virtual Machines Used
+## Virtual Machines Used
 
 | VM Name             | Role                        | Description                                                                 |
 |---------------------|-----------------------------|-----------------------------------------------------------------------------|
@@ -22,7 +22,7 @@ This setup gives our infrastructure something real to protect and monitor in the
 
 ---
 
-## 🎯 Phase Goals
+## Phase Goals
 
 By the end of this phase, we will have:
 
@@ -35,7 +35,7 @@ By the end of this phase, we will have:
 
 ---
 
-## 🛠️ Services Setup
+## Services Setup
 
 - **Internal App VM**
   - `Next.js` **chat-app** served via `Node.js`
@@ -55,7 +55,7 @@ By the end of this phase, we will have:
     - `/` → Internal App VM
     - `/sec` → IAM Server VM (Keycloak)
 ---
-## 🧪 Testing Scenarios
+## Testing Scenarios
 - Test reverse proxy routing from the `Kali VM`/External Admin Computer:
   - `https://192.168.33.6/` ~ `Next.js App`
   - `https://192.168.33.6/sec` ~ `Keycloak IAM`
@@ -65,7 +65,7 @@ By the end of this phase, we will have:
 ---
 
 
-## 📽️ Demo & Results – Non-Technical Overview 
+## Demo & Results – Non-Technical Overview 
 
 ### Accessing The IAM
 A crucial component in any enterprise is an Identity and Access Management system (IAM). It essentially allows us to create & manage user accounts, and grant every user different permissions. For example, a CEO can be granted access to a service showing the profits of the organization, while others may not do so. This is one of the main functions of an IAM.
@@ -106,7 +106,7 @@ The **editor** role can make changes to the messages sent by the others, as the 
 Each user in the **"enterprise"** is assigned different roles, which leads to different access levels within the chatting app. 
 
 ---
-## 🔒 Security Design
+## Security Design
 
 - Internal services are **never directly exposed** to the public internet.
 - External access is restricted to:
@@ -121,7 +121,7 @@ Each user in the **"enterprise"** is assigned different roles, which leads to di
 See **[Lab Steps – Phase 2](lab-steps-phase-2.md)** for detailed VM setup, network configuration, and service installation instructions.
 
 
-## ✅ Next Step
+## Next Step
 
 In **Phase 3**, we will deploy a centralized **Monitoring VM** running **Wazuh + ELK Stack**, which will:
 - Monitor all agent-connected VMs (app, IAM, etc.)

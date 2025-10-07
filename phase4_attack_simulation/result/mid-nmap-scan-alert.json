@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "origin": {
+    "name": "node01",
+    "module": "wazuh-execd"
+  },
+  "command": "delete",
+  "parameters": {
+    "extra_args": [],
+    "alert": {
+      "timestamp": "2025-09-11T14:31:22.306+0000",
+      "rule": {
+        "level": 12,
+        "description": "Port scan suspected: 192.168.33.8 contacted ≥5 different destination ports in 60s.",
+        "id": "100110",
+        "mitre": {
+          "id": [
+            "T1046"
+          ],
+          "tactic": [
+            "Discovery"
+          ],
+          "technique": [
+            "Network Service Discovery"
+          ]
+        },
+        "frequency": 5,
+        "firedtimes": 4,
+        "mail": true,
+        "groups": [
+          "local",
+          "custom",
+          "firewall",
+          "portscan"
+        ]
+      },
+      "agent": {
+        "id": "002",
+        "name": "firewall",
+        "ip": "192.168.20.1"
+      },
+      "manager": {
+        "name": "mon"
+      },
+      "id": "1757601082.55622",
+      "previous_output": "Sep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=43 ID=22529 PROTO=TCP SPT=42977 DPT=4 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=52 ID=62520 PROTO=TCP SPT=42977 DPT=5 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=47 ID=21703 PROTO=TCP SPT=42977 DPT=2 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=40 ID=51922 PROTO=TCP SPT=42977 DPT=3 WINDOW=1024 RES=0x00 SYN URGP=0 ",
+      "full_log": "Sep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=55 ID=16031 PROTO=TCP SPT=42977 DPT=6 WINDOW=1024 RES=0x00 SYN URGP=0 ",
+      "predecoder": {
+        "program_name": "kernel",
+        "timestamp": "Sep 11 14:31:21",
+        "hostname": "firewall"
+      },
+      "decoder": {
+        "parent": "kernel",
+        "name": "kernel"
+      },
+      "data": {
+        "protocol": "TCP",
+        "action": "Firewall-Log:",
+        "srcip": "192.168.33.8",
+        "srcport": "42977",
+        "dstip": "192.168.33.6",
+        "dstport": "6"
+      },
+      "location": "journald"
+    },
+    "program": "active-response/bin/firewall-drop"
+  }
+}

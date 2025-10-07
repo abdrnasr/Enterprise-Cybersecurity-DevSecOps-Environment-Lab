@@ -712,79 +712,9 @@ Once an active response action is taken, a log should be added to the `/var/osse
 
 2025/09/11 14:31:53 active-response/bin/firewall-drop: Ended
 ```
+This is the second full log file:
+- Full JSON NMAP ALERT: [mid-nmap-scan-alert.json](result/mid-nmap-scan-alert.json)
 
-```json
-// This is the second full log
-{
-  "version": 1,
-  "origin": {
-    "name": "node01",
-    "module": "wazuh-execd"
-  },
-  "command": "delete",
-  "parameters": {
-    "extra_args": [],
-    "alert": {
-      "timestamp": "2025-09-11T14:31:22.306+0000",
-      "rule": {
-        "level": 12,
-        "description": "Port scan suspected: 192.168.33.8 contacted ≥5 different destination ports in 60s.",
-        "id": "100110",
-        "mitre": {
-          "id": [
-            "T1046"
-          ],
-          "tactic": [
-            "Discovery"
-          ],
-          "technique": [
-            "Network Service Discovery"
-          ]
-        },
-        "frequency": 5,
-        "firedtimes": 4,
-        "mail": true,
-        "groups": [
-          "local",
-          "custom",
-          "firewall",
-          "portscan"
-        ]
-      },
-      "agent": {
-        "id": "002",
-        "name": "firewall",
-        "ip": "192.168.20.1"
-      },
-      "manager": {
-        "name": "mon"
-      },
-      "id": "1757601082.55622",
-      "previous_output": "Sep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=43 ID=22529 PROTO=TCP SPT=42977 DPT=4 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=52 ID=62520 PROTO=TCP SPT=42977 DPT=5 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=47 ID=21703 PROTO=TCP SPT=42977 DPT=2 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=40 ID=51922 PROTO=TCP SPT=42977 DPT=3 WINDOW=1024 RES=0x00 SYN URGP=0 ",
-      "full_log": "Sep 11 14:31:21 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=55 ID=16031 PROTO=TCP SPT=42977 DPT=6 WINDOW=1024 RES=0x00 SYN URGP=0 ",
-      "predecoder": {
-        "program_name": "kernel",
-        "timestamp": "Sep 11 14:31:21",
-        "hostname": "firewall"
-      },
-      "decoder": {
-        "parent": "kernel",
-        "name": "kernel"
-      },
-      "data": {
-        "protocol": "TCP",
-        "action": "Firewall-Log:",
-        "srcip": "192.168.33.8",
-        "srcport": "42977",
-        "dstip": "192.168.33.6",
-        "dstport": "6"
-      },
-      "location": "journald"
-    },
-    "program": "active-response/bin/firewall-drop"
-  }
-}
-```
 </details>
 
 A couple of key details are available here.
@@ -836,92 +766,7 @@ This indicates that the attacker managed to scan at least **(24 - 4) = 20 alerts
 ### Estimating Response Speed
 Next, we try to quantify the response speed in seconds. We need to collect different items to do this. For this we need multiple to collect multiple timestamp readings across different logs.
 
-<details>
-  <summary>First Alert JSON</summary>
-
-
-```json
-{
-  "_index": "wazuh-alerts-4.x-2025.09.11",
-  "_id": "Kml6OpkB07kMfIo2uxNj",
-  "_version": 1,
-  "_score": null,
-  "_source": {
-    "predecoder": {
-      "hostname": "firewall",
-      "program_name": "kernel",
-      "timestamp": "Sep 11 20:32:16"
-    },
-    "input": {
-      "type": "log"
-    },
-    "agent": {
-      "ip": "192.168.20.1",
-      "name": "firewall",
-      "id": "002"
-    },
-    "previous_output": "Sep 11 20:32:16 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=50 ID=52565 PROTO=TCP SPT=56411 DPT=53 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 20:32:16 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=53 ID=27017 PROTO=TCP SPT=56411 DPT=23 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 20:32:16 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=42 ID=56835 PROTO=TCP SPT=56411 DPT=993 WINDOW=1024 RES=0x00 SYN URGP=0 \nSep 11 20:32:16 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=38 ID=27927 PROTO=TCP SPT=56411 DPT=111 WINDOW=1024 RES=0x00 SYN URGP=0 ",
-    "data": {
-      "protocol": "TCP",
-      "srcip": "192.168.33.8",
-      "dstport": "199",
-      "action": "Firewall-Log:",
-      "srcport": "56411",
-      "dstip": "192.168.33.6"
-    },
-    "manager": {
-      "name": "mon"
-    },
-    "rule": {
-      "firedtimes": 1,
-      "mail": true,
-      "level": 12,
-      "description": "Port scan suspected: 192.168.33.8 contacted ≥5 different destination ports in 60s.",
-      "groups": [
-        "local",
-        "custom",
-        "firewall",
-        "portscan"
-      ],
-      "mitre": {
-        "technique": [
-          "Network Service Discovery"
-        ],
-        "id": [
-          "T1046"
-        ],
-        "tactic": [
-          "Discovery"
-        ]
-      },
-      "id": "100110",
-      "frequency": 5
-    },
-    "location": "journald",
-    "decoder": {
-      "parent": "kernel",
-      "name": "kernel"
-    },
-    "id": "1757622738.84477",
-    "full_log": "Sep 11 20:32:16 firewall kernel: Firewall-Log: IN=enp0s3 OUT= MAC=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX SRC=192.168.33.8 DST=192.168.33.6 LEN=44 TOS=0x00 PREC=0x00 TTL=42 ID=64462 PROTO=TCP SPT=56411 DPT=199 WINDOW=1024 RES=0x00 SYN URGP=0 ",
-    "timestamp": "2025-09-11T20:32:18.796+0000"
-  },
-  "fields": {
-    "timestamp": [
-      "2025-09-11T20:32:18.796Z"
-    ]
-  },
-  "highlight": {
-    "manager.name": [
-      "@opensearch-dashboards-highlighted-field@mon@/opensearch-dashboards-highlighted-field@"
-    ]
-  },
-  "sort": [
-    1757622738796
-  ]
-}
-```
-</details>
+FIRST ALERT JSON: [low-nmap-scan-alert.json](result\low-nmap-scan-alert.json)
 
 1. First, we need the timestamp of the **5th log in the first alert**, because this log is the timestamp at which the block must have occurred. The log of the 5th alert is as follows, which can be found in the first alert itself in `Wazuh`:
 
@@ -1009,7 +854,6 @@ Using directives like `<same_source_ip />` or `<same_field />` ensures that repe
 #### Rule Grouping and Correlation
 
 You can group related rules under a parent rule. Instead of multiple alerts for each sub-rule (e.g., similar to how we grouped alerts for rule 100100 to generate 100110 alerts), Wazuh can generate a single higher-level alert that reflects the overall attack attempt, reducing noise and improving clarity.
-
 
 # Summary
 
