@@ -2,7 +2,7 @@
 
 Until this point, the pipeline stages were only tested with very few code changes, as we were mostly focusing on the `.gitlab-ci.yml` file. Here, however, we test the pipeline with new code pushed into the repository. We will not change the pipeline configuration file as it is now in a ready state.
 
-The goal of this exercise is to validate whether we can securely deliver new features securely through the pipeline without facing issues. You may have to write your own feature here to test the pipeline’s capability, unless you have started the project without the `"Summary"` or `"admin-page"` features.
+The goal of this exercise is to validate whether we can securely deliver new features securely through the pipeline without facing issues. You may have to write your own feature here to test the pipeline's capability, unless you have started the project without the `"Summary"` or `"admin-page"` features.
 
 ## The New Feature
 
@@ -429,4 +429,4 @@ If, however, the new release is performing well, we can continue gradually incre
 
 The pipeline test successfully validated the secure and automated delivery of new features, specifically the `"Summary"` feature, which displays the total number of users and messages for roles with the `"summary.view"` permission. The pipeline successfully passed all tests, and achieved `100%` coverage in unit test coverage for updated code files. The deployment proceeded automatically to the `green` environment, confirming that the CI/CD setup can handle new features without manual intervention.
 
-Later, a faulty version introducing an authorization flaw in the `"admin-page"` feature was deliberately deployed to demonstrate rollback. Using the `revert.py` script, traffic was switched from the `blue (faulty)` deployment back to the `green (stable)` one through the `Blue-Green` strategy, achieving **near-zero downtime**. This confirmed the pipeline’s resilience, reliability, and ability to revert to a stable version seamlessly after identifying a bad release.
+Later, a faulty version introducing an authorization flaw in the `"admin-page"` feature was deliberately deployed to demonstrate rollback. Using the `revert.py` script, traffic was switched from the `blue (faulty)` deployment back to the `green (stable)` one through the `Blue-Green` strategy, achieving **near-zero downtime**. This confirmed the pipeline's resilience, reliability, and ability to revert to a stable version seamlessly after identifying a bad release.

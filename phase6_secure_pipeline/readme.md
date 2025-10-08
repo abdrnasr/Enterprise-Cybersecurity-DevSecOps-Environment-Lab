@@ -27,7 +27,7 @@ By the end of this phase:
 - Every Git push triggers a **secure CI/CD pipeline**
     - Secrets leakage is prevented before deployment
     - Third-party dependency vulnerabilities are identified
-    - Automated unit tests run and coverage is enforced — the build fails on test failures or if coverage falls below the defined gate.
+    - Automated unit tests run and coverage is enforced, the build fails on test failures or if coverage falls below the defined gate.
     - Static code issues are detected and flagged automatically
     Dynamic Application Security Testing (DAST) is run against the deployed staging instance; critical/high runtime vulnerabilities block promotion to production.
 - The `App VM` is deployed to the internal server **only when clean**
@@ -58,7 +58,7 @@ By the end of this phase:
     - Once coverage thresholds are met, the pipeline should succeed
 - Introduce a code quality issue (SonarQube - SAST)
     - A code quality/security issue is introduced (e.g., hardcoded credentials, SQL injection risk, unused variables).
-    - The issue is flagged by SonarQube’s SAST analysis, causing the pipeline to fail.
+    - The issue is flagged by SonarQube's SAST analysis, causing the pipeline to fail.
     - The problematic code must be refactored or removed.
     - Once SonarQube reports no critical/blocker issues, the pipeline should succeed.
 
@@ -170,16 +170,16 @@ Here, the code violated two conditions: it had one software issue (must be 0), a
 
 ## Security Design
 
-| Security Layer        | Description                                                                                              |
-| --------------------- | -------------------------------------------------------------------------------------------------------- |
-| Secrets injection     | Uses `GitLab` CI/CD variables                                                                              |
-| Isolated runners      | CI/CD Jobs are run inside isolated `Docker` images for isolation and sand-boxing                           |
-| Approved dependencies | Requires clean audit reports to proceed to deploy                                                        |
-| Secret scanning       | Detects leaked credentials/tokens in repo/commits (pipeline secret-detection).        |
-| Dependency scanning   | SCA that finds vulnerable/transitive OSS deps (fail on `high`/`critical` CVEs).               |
-| SAST                  | Static application security testing (source-code analysis for injection, auth, crypto issues).           |
-| DAST                  | Dynamic testing against running app (authenticated scans and runtime vulnerabilities). |
-| Deployment over `rsync` (secured by SSH)  | Ensures secure transport to the `APP VM`                       |
+| Security Layer        | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| Secrets injection     | Uses `GitLab` CI/CD variables                                                                  |
+| Isolated runners      | CI/CD Jobs are run inside isolated `Docker` images for isolation and sand-boxing               |
+| Approved dependencies | Requires clean audit reports to proceed to deploy                                              |
+| Secret scanning       | Detects leaked credentials/tokens in repo/commits (pipeline secret-detection).                 |
+| Dependency scanning   | SCA that finds vulnerable/transitive OSS deps (fail on `high`/`critical` CVEs).                |
+| SAST                  | Static application security testing (source-code analysis for injection, auth, crypto issues). |
+| DAST                  | Dynamic testing against running app (authenticated scans and runtime vulnerabilities).         |
+| Deployment over `rsync` (secured by SSH)  | Ensures secure transport to the `APP VM`                                   |
 
 ---
 
@@ -190,6 +190,7 @@ See **[Lab Steps – Phase 6](lab-steps-phase-6.md)** for detailed VM setup, net
 
 ## Next Step
 
-In **Phase 7**, we will enhance the environment by:
-- Logging, alerting, and reporting from CI/CD security scans
+In **Phase 6.1**, we will enhance the environment by:
+- Extending the CI/CD pipeline to include feature updates, automated testing, and end-to-end deployment validation.
+- Introducing a bugged version to verify blue-green zero-downtime rollback and ensure seamless traffic switchback to the stable environment.
 

@@ -125,6 +125,6 @@ See **[Lab Steps – Phase 6.1](lab-steps-phase-6.1.md)** for detailed VM setup,
 
 ## Next Step
 
-In **Phase 7**, we will enhance the environment by:
-- Logging, alerting, and reporting from CI/CD security scans
+In **Phase 7**, we will tackle operational monitoring using the ELK Stack.
+This includes validating application releases, tracking latency and error trends, and generating alerts for performance anomalies. The goal is to ensure every deployment is stable, observable, and quickly recoverable.
 

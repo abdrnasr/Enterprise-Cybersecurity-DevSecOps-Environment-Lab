@@ -125,7 +125,7 @@ server {
         # Keep /sec in the URI when passing to backend
         proxy_pass http://192.168.20.3:8080;
 
-        # Don’t rewrite redirect headers automatically
+        # Don't rewrite redirect headers automatically
         proxy_redirect off;
     }
 }
@@ -193,7 +193,7 @@ server {
         # Preserve /sec in upstream request (note: NO trailing slash)
         proxy_pass http://192.168.20.3:8080;
 
-        # Don’t auto-rewrite Location headers
+        # Don't auto-rewrite Location headers
         proxy_redirect off;
     }
 }
@@ -387,8 +387,8 @@ This value will not only be used by the browser, but also the app server will us
 
 ### Nat Hairpinning
 - When a device inside your LAN tries to access your own public IP address (instead of the private one), the request goes out to the router/firewall, then back inside to the server.
-- Many NAT devices don’t handle this well by default.
-- The packet leaves with a private source address, hits the NAT, and then the router doesn’t know how to **reflect** it back inside.
+- Many NAT devices don't handle this well by default.
+- The packet leaves with a private source address, hits the NAT, and then the router doesn't know how to **reflect** it back inside.
 - Result: You can reach your server from the **outside world** using the public IP, but not from inside your **own network**.
 
 So, accessing `keycloak` from the app server using https://192.168.33.6/sec/realms/master is not possible, and you can prove this by attempting to curl from the app server:
@@ -614,7 +614,7 @@ Because the `IAM` service resides on the internal network, special consideration
 
 To further improve security, **TLS encryption** is added using a **self-signed certificate**, ensuring that communications with `Keycloak` are encrypted even if the certificate is not trusted by default in a browser. With these measures in place, the IAM is accessible at a controlled external address through the proxy while continuing to protect the internal network from direct exposure.
 
-Once `Keycloak` is operational, it is configured with clients, roles, and users. Clients define how external applications interact with the IAM, while roles are used to represent different levels of permissions. Users are then created and assigned appropriate roles, allowing the lab’s sample application to authenticate against `Keycloak` and receive authorization tokens that govern access rights.
+Once `Keycloak` is operational, it is configured with clients, roles, and users. Clients define how external applications interact with the IAM, while roles are used to represent different levels of permissions. Users are then created and assigned appropriate roles, allowing the lab's sample application to authenticate against `Keycloak` and receive authorization tokens that govern access rights.
 
 On the `application VM`, a `simple chat application` is deployed as a proof of concept. This app uses a database backend for storing data and integrates directly with the IAM service for authentication. The environment variables and configuration files of the app reference `Keycloak` as the identity provider. When users access the application, they are redirected to `Keycloak` for login, and their tokens determine which actions are permitted based on their assigned roles. **Role-based access control** is enforced directly by validating the tokens for each request.
 

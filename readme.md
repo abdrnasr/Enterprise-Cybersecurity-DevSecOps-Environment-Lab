@@ -10,7 +10,7 @@
   - [Phase 4 – Attack Simulation & Detection & Response](phase4_attack_simulation/readme.md)
   - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab/readme.md)
   - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
-    -[Phase 6.1 - Feature Writing, Pipeline Validation, & Blue-Green Recovery](phase6.1_feature_writing_and_reversion/readme.md)
+    - [Phase 6.1 - Feature Writing, Pipeline Validation, & Blue-Green Recovery](phase6.1_feature_writing_and_reversion/readme.md)
   - [Phase 7 – Secrets Management & Access Control](phase7_operational_observability/readme.md)
 - [Architecture](#architecture)
 - [Project Requirements](#project-requirements)
@@ -40,7 +40,7 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 - Enable **technical audiences** to follow along step-by-step through the project build process.
 - Serve as an **aspiration and learning resource** for other aspiring cybersecurity professionals.
 - Offer a **clear blueprint** for building a comprehensive, realistic, and security-focused lab environment.
-- **Demonstrate the cybersecurity mindset** — for example, when deploying a firewall, consider:
+- **Demonstrate the cybersecurity mindset** for example, when deploying a firewall, consider:
   - What traffic should be allowed or denied
   - How rules affect internal vs. external access
   - How logging and alerting will be handled
@@ -90,13 +90,13 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 
 This architecture represents a balanced approach between simplicity and security, making it practical and effective for the scope of this project.
 
-It uses three segmented networks — External, DMZ, and Internal — with a firewall VM at the center to control traffic flow. The design is straightforward enough to be easily managed, while still enforcing a layered security model:
+It uses three segmented networks, External, DMZ, and Internal, with a firewall VM at the center to control traffic flow. The design is straightforward enough to be easily managed, while still enforcing a layered security model:
 
 - The External Network simulates the internet, providing administrative access and potential simulated threats.
 - The DMZ Network isolates public-facing services, reducing the risk of direct exposure to the internal systems.
 - The Internal Network securely hosts core applications, IAM services, CI/CD pipelines, and monitoring tools, ensuring critical resources remain protected.
 
-By separating functions and limiting cross-network communication through defined interfaces, this setup achieves the necessary security for testing and operations without over-complicating deployment or management. It’s lean, functional, and purpose-built for this project’s goals.
+By separating functions and limiting cross-network communication through defined interfaces, this setup achieves the necessary security for testing and operations without over-complicating deployment or management. It's lean, functional, and purpose-built for this project's goals.
 
 ---
 
@@ -124,7 +124,7 @@ By separating functions and limiting cross-network communication through defined
 <a id="non-technical-readers"></a>
 
 ### Non-Technical Readers
-In each section of the project, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase. You don’t need to follow the technical steps; instead, view the `readme` files of each phase that focus on:
+In each section of the project, you will find a summary of **outcomes and results** that demonstrate the impact of the work done in that phase. You don't need to follow the technical steps; instead, view the `readme` files of each phase that focus on:
 - The **before vs. after** state of the environment
 - The **problems addressed** in each phase
 - The **improvements in security posture**

@@ -8,7 +8,7 @@ In Phase 4, we move into **active attack simulation, detection, and response** t
 - How quickly and easily the attacks can be detected
 - How good is the environments response to the attack
 
-This phase represents the **"red team vs. blue team"** part of the project, testing the security controls we’ve built across earlier phases.
+This phase represents the **"red team vs. blue team"** part of the project, testing the security controls we have built across earlier phases.
 
 ---
 
@@ -98,7 +98,7 @@ The time it takes for a response to be triggered after an attack is detected is 
 
 We have identified that the port-scan detection we implemented has some gaps. These gaps mainly come from the trade-offs between detection accuracy, storage requirements, performance, and false positive reduction. 
 
-The key point is that these trade-offs are not fixed—they can be tuned for each environment. In a high-security setup, thresholds and timeframes can be stricter with longer blocking times, while in production environments with heavy user traffic, looser thresholds and suppression techniques may be better to reduce noise. This flexibility means each organization can configure the detection to minimize the gap most relevant to its risk profile and operational needs.
+The key point is that these trade-offs are not fixed, they can be tuned for each environment. In a high-security setup, thresholds and timeframes can be stricter with longer blocking times, while in production environments with heavy user traffic, looser thresholds and suppression techniques may be better to reduce noise. This flexibility means each organization can configure the detection to minimize the gap most relevant to its risk profile and operational needs.
 
 That said, the environment may still have other blind spots. However, the goal of this phase is to demonstrate a methodology for implementing a security control, assessing it, and confirming it functions as intended; not to eliminate every single weakness in the environment, which would require significantly more time, effort, and tooling.
 
