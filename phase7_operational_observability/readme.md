@@ -19,7 +19,7 @@ In Phase 7, we **activate** the `ELK stack` (set up in Phase 3) as the **observa
 ## 🎯 Phase Goals
 
 By the end of this phase:
-- Move ELK from “dummy server” to live observability platform.
+- Move ELK from **dummy server** to live observability platform.
 - Central dashboards for:
     - App health (latency, error rates, top failing routes)
     - Pipeline health (success/failure trends, build duration, runner load)

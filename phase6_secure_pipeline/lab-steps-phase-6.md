@@ -1683,6 +1683,8 @@ Downloading the artifacts, you can find an HTML containing the detections of the
   <img width="80%" src="images/OWASP_Report.png">
 </p>
 
+HTML FILE (Correct The Extension To View The Report): [zap-baseline-report.html.txt](result/zap-baseline-report.html.txt)
+
 We will not be going through the report, as this out of the scope of the project. Also, note that many of the reported problems can simply be fixed by updating the libraries to the latest versions, and some are just false-positives.
 
 ## Deployment Phase

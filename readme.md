@@ -10,6 +10,7 @@
   - [Phase 4 – Attack Simulation & Detection & Response](phase4_attack_simulation/readme.md)
   - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab/readme.md)
   - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
+    -[Phase 6.1 - Feature Writing, Pipeline Validation, & Blue-Green Recovery](phase6.1_feature_writing_and_reversion/readme.md)
   - [Phase 7 – Secrets Management & Access Control](phase7_operational_observability/readme.md)
 - [Architecture](#architecture)
 - [Project Requirements](#project-requirements)
@@ -74,6 +75,7 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 | [**Phase 4**](phase4_attack_simulation/readme.md) | Attack Simulation & Detection & Response | Implement defensive controls in `Wazuh` against a specific real-world attack, then use `Kali Linux` to execute the attack in order to validate detection, alerting, and response effectiveness.
 | [**Phase 5**](phase5_gitlab/readme.md) | GitLab & Secrets Management Setup | Install and configure `GitLab CE` for source control and CI/CD. |
 | [**Phase 6**](phase6_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a `GitLab CI/CD` pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the `Next.js` app. |
+| [**Phase 6.1**](phase6.1_feature_writing_and_reversion/readme.md) | Feature Writing, Pipeline Validation, & Blue-Green Recovery | Add a new feature to the `Next.js` app, validate the full CI/CD pipeline end-to-end, and test the `blue-green` deployment strategy with rollback to a stable version. |
 | [**Phase 7**](phase7_operational_observability/readme.md) | Operational Observability (ELK Actualization) | Activate and focus on **operational monitoring**. Logs, metrics, and traces from the `Next.js` app, **CI/CD pipelines**, `GitLab`, `Nginx` DMZ, and hosts are ingested into `Elasticsearch` and visualized in `Kibana`. |
 
 ---

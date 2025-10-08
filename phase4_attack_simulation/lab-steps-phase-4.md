@@ -339,10 +339,10 @@ Save the file. Then you will be asked to restart Wazuh Manager, which you should
 
 ## Rule Explanation
 
-**Rule 100100 — “base” tagger for firewall logs**
+**Rule 100100 - base tagger for firewall logs**
 
-- It only runs on events that already matched rule 4100 (<if_sid>4100</if_sid>), and it further requires the log line to contain the text “Firewall-Log” (<match>Firewall-Log</match>).
-- It raises a very low-severity alert (level="1") with the description “Custom firewall log captured (base)”.
+- It only runs on events that already matched rule 4100 (<if_sid>4100</if_sid>), and it further requires the log line to contain the text "Firewall-Log" (<match>Firewall-Log</match>).
+- It raises a very low-severity alert (level="1") with the description "Custom firewall log captured (base)".
 - The idea is to tag/collect these firewall events under SID 100100 so a later rule can count them.
 - We set <options>no_log</options>, which means the alert won’t include the original log body. It does not suppress the alert itself.
 
@@ -354,8 +354,8 @@ Save the file. Then you will be asked to restart Wazuh Manager, which you should
 
 **Or Simply**
 - A firewall log triggers 4100 (built-in).
-- If that log line also contains “Firewall-Log”, 100100 tags it (and, as written, emits a level-1 alert and we suppress this alert).
-- If within 60s the same src IP hits 5 different dst ports, 100110 fires a level-12 “port scan suspected” alert.
+- If that log line also contains "Firewall-Log", 100100 tags it (and, as written, emits a level-1 alert and we suppress this alert).
+- If within 60s the same src IP hits 5 different dst ports, 100110 fires a level-12 "port scan suspected" alert.
 
 
 ## Testing the Rule
@@ -859,7 +859,7 @@ You can group related rules under a parent rule. Instead of multiple alerts for 
 
 We built a realistic monitoring stack, then enumerated and prioritized assets by *mock business impact*, CIA, exposure, and recovery difficulty. Highest-critical items included the `Wazuh Manager/Indexer/Dashboard (visibility backbone)`, `Keycloak IAM`, the SSH beacon and `Nginx` in the DMZ, core firewall policy, and app/database components. Baseline security controls covered TLS termination at `Nginx`, subnetting and port exposure minimization, least-privilege administration, strong passwords, and centralized monitoring via `Wazuh`. We also outlined future hardening: NIDS (`Suricata`/`Snort`), log integrity/immutability, WAF, HA/load balancing, automation, patch management, and MFA through `Keycloak` to strengthen identity without touching the app.
 
-We then targeted a concrete detection gap: **undetected reconnaissance** from basic port scans. To close it, the firewall was configured to log inbound TCP hits on privileged ports **(1–1024) except 22/80/443**, tagging with a clear **prefix** and rate-limiting logs to prevent floods. Those kernel logs flow to `journald` and are shipped by the `Wazuh Agent` without extra forwarding config. On the `Wazuh` side, we kept the built-in kernel decoder and added two lightweight custom rules: **a low-level “base” tag (100100) and a high-severity correlation (100110)** that fires when the same source IP touches ≥5 different destination ports in 60 seconds—mapped to `MITRE ATT&CK T1046 (Network Service Discovery)`.
+We then targeted a concrete detection gap: **undetected reconnaissance** from basic port scans. To close it, the firewall was configured to log inbound TCP hits on privileged ports **(1–1024) except 22/80/443**, tagging with a clear **prefix** and rate-limiting logs to prevent floods. Those kernel logs flow to `journald` and are shipped by the `Wazuh Agent` without extra forwarding config. On the `Wazuh` side, we kept the built-in kernel decoder and added two lightweight custom rules: **a low-level "base" tag (100100) and a high-severity correlation (100110)** that fires when the same source IP touches ≥5 different destination ports in 60 seconds—mapped to `MITRE ATT&CK T1046 (Network Service Discovery)`.
 
 Detection was paired with response. Using `Wazuh Active Response`, the environment automatically executes `firewall-drop` on the affected agent when rule 100110 triggers, temporarily blocking the scanning **source IP** and logging the action. Blocking an attacker flows as follows:
 - Attacker scans the firewall using `nmap` from the `Kali VM`   
@@ -872,7 +872,7 @@ Finally, we assessed limitations and possible improvements for the detection mec
 - Slow/distributed scans can evade a short 60-second window; 
 - Raising the timeframe or threshold trades noise for coverage. 
 - Excluding 22/80/443 avoids false positives but means those ports don’t contribute to triggers. 
-- Response is not instantaneous due to logging, shipping, correlation, and command execution latency; measuring “ports scanned before block” is a practical effectiveness metric.
+- Response is not instantaneous due to logging, shipping, correlation, and command execution latency; measuring "ports scanned before block" is a practical effectiveness metric.
 - Alert volume can be controlled via higher frequencies, duplicate suppression, and rule grouping. 
 
 Overall, the lab demonstrates a clear, defensible workflow: enumerate and prioritize assets, configure the perimeter to produce high-signal logs, correlate reconnaissance patterns in `Wazuh`, and enforce timely, targeted blocks—while acknowledging and tuning around operational trade-offs.

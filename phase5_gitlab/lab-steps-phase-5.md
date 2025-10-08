@@ -514,7 +514,7 @@ You will be prompted to enter the passwords for the `DMZ VM` (if you've used a p
   <img src="images/Admin_SSH_GitLab.png">
 </p>
 
-If you see `“Welcome to GitLab, @root!”`, the setup is complete.
+If you see `"Welcome to GitLab, @root!"`, the setup is complete.
 
 ## Explanation of The Connection Establishment Process
 

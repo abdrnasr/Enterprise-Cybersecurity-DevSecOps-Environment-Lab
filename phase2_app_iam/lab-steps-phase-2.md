@@ -388,7 +388,7 @@ This value will not only be used by the browser, but also the app server will us
 ### Nat Hairpinning
 - When a device inside your LAN tries to access your own public IP address (instead of the private one), the request goes out to the router/firewall, then back inside to the server.
 - Many NAT devices don’t handle this well by default.
-- The packet leaves with a private source address, hits the NAT, and then the router doesn’t know how to “reflect” it back inside.
+- The packet leaves with a private source address, hits the NAT, and then the router doesn’t know how to **reflect** it back inside.
 - Result: You can reach your server from the **outside world** using the public IP, but not from inside your **own network**.
 
 So, accessing `keycloak` from the app server using https://192.168.33.6/sec/realms/master is not possible, and you can prove this by attempting to curl from the app server:
