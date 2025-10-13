@@ -1,0 +1,39 @@
+stages:
+  - release_start
+  - release_finish
+
+variables:
+
+  # Required CI/CD variables (set in GitLab → Settings → CI/CD → Variables):
+  # ES_URL (e.g., https://es.example.com:9200)
+  # ES_API_KEY
+
+  # ES_CA_CERT  (type = File; trusted CA bundle)  ← optional but recommended/required for self-signed certs
+  # Optional: ES_SKIP_TLS_VERIFY=1 -> disables TLS verification
+
+  # Automatically SET: RELEASE_VERSION, ENVIRONMENT, ES_INDEX (default: app-releases)
+
+  ES_INDEX: "app-releases"
+  ES_URL: "https://192.168.20.5:9200"
+
+release:start:
+  stage: release_start
+  image: alpine:latest # or alpine:3.22.2 for pinning
+  script:
+    - apk add --no-cache coreutils
+    - STARTED_AT="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+    - echo "STARTED_AT=$STARTED_AT"          >> release.env
+    - echo "RELEASE_VERSION=${RELEASE_VERSION:-$CI_COMMIT_TAG}" >> release.env
+    - echo "COMMIT=${COMMIT:-$CI_COMMIT_SHORT_SHA}"             >> release.env
+    - echo "ENVIRONMENT=${ENVIRONMENT:-GitLab}" >> release.env
+  artifacts:
+    reports:
+      dotenv: release.env
+    expire_in: 1 day
+
+release:finish:
+  stage: release_finish
+  image: python:3.12.12-alpine
+  #needs: ["release:start"]
+  script:
+    - python3 additional_files/scripts/emit_release_event.py
