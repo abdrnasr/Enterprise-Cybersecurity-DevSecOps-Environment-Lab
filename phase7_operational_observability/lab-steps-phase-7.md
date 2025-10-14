@@ -992,6 +992,46 @@ Clearly, the rule was triggered as a result of the increase in error rate. We ca
 
 ---
 
+# One Last Test
+
+In the previous sections, pushing the code and monitoring the behavior was based only on the 4 essential build stages. However, we also want to be sure that the deployment works even with the other pipelines in place. Therefore, we reconfigure the `.gitlab-ci.yml` file to include all stages (besides `Sonarqube` as it was removed).
+
+```yml
+stages:
+  - release_start
+  - secrets-scan
+  - dependency-scan
+  - test-coverage
+  # - sast-scan
+  - "build & release"
+  - auth
+  - DAST
+  - deploy
+  - release_finish
+
+## The rest of the file...
+```
+Full File: [3-full-monitoring-no-sast.gitlab-ci.yml](files/3-full-monitoring-no-sast.gitlab-ci.yml)
+
+1. We begin with pushing the code to the repository and wait for the pipeline to finish.
+  - During the build, interact with the app to build some history of traffic.
+
+<p align="center">
+  <img src="images/GitLab_Good_Version_Success.png">
+</p>
+
+2. The pipeline shows a success, so now we can view the dashboards.
+
+<p align="center">
+  <img src="images/Dashboard_Good_Version.png">
+</p>
+
+3. As you can see, the newly introduced version managed to pass the pipeline, correctly user activity on the application, send a release event, and switch to the newer version. 
+
+With that, we have a semi-enterprise ready DevSecOps pipeline. To view the details of this build, visit [full-pipeline-with-monitoring](./full-pipeline-with-monitoring.md). 
+
+---
+
 # Discussion
 ## HTTP Header Data Exposure
 
@@ -1046,7 +1086,7 @@ In this case, we can have a small guide telling the administrator how to investi
 | **Category** | **Details** |
 |---------------|-------------|
 | **Possible Causes** | - `MySQL` database is down <br> - Broken application update <br> - Misconfigured application environment variables |
-| **Response Steps** | 1. Check the dashboard. <br> 2. If **multiple endpoints** show errors → investigate the **database** status. <br> 3. If **only one endpoint** is affected → check that endpoint’s **configuration** and confirm whether a recent **update** caused the issue. |
+| **Response Steps** | 1. Check the dashboard. <br> 2. If **multiple endpoints** show errors → investigate the **database** status. <br> 3. If **only one endpoint** is affected → check that endpoint's **configuration** and confirm whether a recent **update** caused the issue. |
 
 The table should be concise yet accurate and descriptive. Generic instructions may only help those who are very familiar with the deployment.
 

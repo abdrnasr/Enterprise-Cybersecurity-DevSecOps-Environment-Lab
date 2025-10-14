@@ -1,4 +1,4 @@
-# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 6: Secure CI/CD Pipeline
+# Enterprise Cybersecurity & DevSecOps Environment Project – Phase 6.1: Feature Writing, Pipeline Validation, & Blue-Green Recovery
 
 ## Overview
 

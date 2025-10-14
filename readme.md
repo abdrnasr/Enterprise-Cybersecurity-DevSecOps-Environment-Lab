@@ -1,6 +1,5 @@
 #  Enterprise Cybersecurity & DevSecOps Environment Project
 ## Content
-
 - [Overview](#overview)
 - [Project Goals & Progress](#project-goals)
 - [Project Phases](#project-phases)
@@ -11,15 +10,13 @@
   - [Phase 5 – GitLab & Secrets Management Setup](phase5_gitlab/readme.md)
   - [Phase 6 – Secure CI/CD Pipeline](phase6_secure_pipeline/readme.md)
     - [Phase 6.1 - Feature Writing, Pipeline Validation, & Blue-Green Recovery](phase6.1_feature_writing_and_reversion/readme.md)
-  - [Phase 7 – Secrets Management & Access Control](phase7_operational_observability/readme.md)
+  - [Phase 7 – Operational Observability ](phase7_operational_observability/readme.md)
 - [Architecture](#architecture)
 - [Project Requirements](#project-requirements)
 - [How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
 - [License](#license)
-
-<a id="overview"></a>
 
 ## Overview
 
@@ -70,13 +67,13 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 | <span style="padding-right:20px;">Phase No.</span> | Title | Description |
 |-------|-------|-------------|
 | [**Phase 1**](phase1_infra/readme.md) | Core Network Infrastructure | Set up 3 VMs: Firewall, DMZ, and Kali attacker. Configure SSH beacon and reverse proxy in DMZ. |
-| [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal `Next.js` app with database and `Keycloak IAM` server, accessible via DMZ reverse proxy. |
+| [**Phase 2**](phase2_app_iam/readme.md) | Internal Web App + IAM | Deploy internal `Next.js` app with `MySQL` database and `Keycloak IAM` server, accessible via DMZ reverse proxy. |
 | [**Phase 3**](phase3_monitoring/readme.md) | Monitoring & Visibility | Deploy `Wazuh` + `ELK Stack` for SIEM, Security & Logging. `Wazuh Monitoring Agents` installed on all VMs. |
 | [**Phase 4**](phase4_attack_simulation/readme.md) | Attack Simulation & Detection & Response | Implement defensive controls in `Wazuh` against a specific real-world attack, then use `Kali Linux` to execute the attack in order to validate detection, alerting, and response effectiveness.
 | [**Phase 5**](phase5_gitlab/readme.md) | GitLab & Secrets Management Setup | Install and configure `GitLab CE` for source control and CI/CD. |
 | [**Phase 6**](phase6_secure_pipeline/readme.md) | Secure CI/CD Pipeline | Build a `GitLab CI/CD` pipeline integrating SAST, DAST, dependency scanning, and secret scanning for the `Next.js` app. |
-| [**Phase 6.1**](phase6.1_feature_writing_and_reversion/readme.md) | Feature Writing, Pipeline Validation, & Blue-Green Recovery | Add a new feature to the `Next.js` app, validate the full CI/CD pipeline end-to-end, and test the `blue-green` deployment strategy with rollback to a stable version. |
-| [**Phase 7**](phase7_operational_observability/readme.md) | Operational Observability (ELK Actualization) | Activate and focus on **operational monitoring**. Logs, metrics, and traces from the `Next.js` app, **CI/CD pipelines**, `GitLab`, `Nginx` DMZ, and hosts are ingested into `Elasticsearch` and visualized in `Kibana`. |
+| [**Phase 6.1**](phase6.1_feature_writing_and_reversion/readme.md) | Feature Writing, Pipeline Validation, & Blue-Green Recovery | Add new features to the `Next.js` app, validate the full CI/CD pipeline end-to-end, and test the `Blue-Green` deployment strategy with rollback to a stable version. |
+| [**Phase 7**](phase7_operational_observability/readme.md) | Operational Observability | Activate and focus on **operational monitoring**. Logs, metrics, and traces from the `Next.js` app, **CI/CD pipelines**, `GitLab`, `Nginx` DMZ, and hosts are ingested into `Elasticsearch` and visualized in `Kibana`. |
 
 ---
 
@@ -138,7 +135,7 @@ This will give you a clear understanding of **why** each phase matters and how i
 ### Technical Readers
 First of all, I expect that readers have some proficiency with Linux, virtualized environments, and basic networking concepts. Some steps in this guide will be explained very briefly, and you may need to consult external resources for deeper understanding or troubleshooting. The goal here is to outline the major steps and structure of the project, not to provide exhaustive tutorials for every tool or command.
 
-#### Technical Summary (per phase)
+#### Technical Summary (Per Phase)
 
 At the end of each phase, you will find a **Technical Summary**. This section is for readers who want a high-level but slightly technical overview without going through every single command.  
 Each summary may include:  
@@ -147,7 +144,8 @@ Each summary may include:
 - Security Discussions  
 - Outcomes
 
-In addition to the summary, there is usually a section **before** the summary that discuses some other critical points for the phase. 
+In addition to the summary, there is usually a section **before** the summary that discuses some other critical points for the phase.
+
 #### How to Work Through the Labs
 1. Start from **Phase 1** and follow the `README.md` & `lab-steps.md` in each phase folder.  
 2. Each phase may include:
@@ -161,6 +159,11 @@ In addition to the summary, there is usually a section **before** the summary th
      - Code Files (mostly embedded within `GitHub`) 
    - Testing Scenarios  
    - Technical Summary  
+
+
+#### Technical Highlights
+
+This section emphasizes the most notable parts of the project. Some sections contain more technically significant or impactful details than others.
 
 ---
 

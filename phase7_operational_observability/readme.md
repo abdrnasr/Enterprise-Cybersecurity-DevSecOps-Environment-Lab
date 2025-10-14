@@ -32,9 +32,9 @@ By the end of this phase:
 ## Demo & Results – Non-Technical Overview 
 
 The ELK stack comprises `Elasticsearch`, `Logstash`, & `Kibana` each serving a distinct purpose in the stack.
-- `Elasticsearch`: stores and indexes the data. It provides search and analytics capabilities.
-- `Logstash`: collects, parses, and transforms logs or other data before sending them to `Elasticsearch`.
-- `Kibana`: visualizes the data stored in `Elasticsearch`, allowing dashboards, charts, and interactive exploration.
+- `Elasticsearch`: keeps and organizes data so it can be quickly searched or analyzed.
+- `Logstash`: gathers and cleans data before sending it for storage.
+- `Kibana`: shows the data in charts and dashboards so it is easy to understand.
 
 For this lab, we only needed to use `Elasticsearch` and `Kibana`.
 
@@ -43,13 +43,13 @@ For this lab, we only needed to use `Elasticsearch` and `Kibana`.
 The first scenario that we cover is to deploy a **healthy release** to production. We start by pushing the code into the repository and letting the pipeline do its job.
 
 <p align="center">
-  <img src="images/Glab_FIrst_Success.png">
+  <img src="images/GitLab_Good_Version_Success.png">
 </p>
 
-Pushing the code into the repository resulted in a successful pipeline execution. The pipeline reports important information, such as the exact release timestamp. This timestamp is used to add clear vertical markers on the dashboards, helping visualize trends caused by newer releases.
+Pushing the code into the repository resulted in a successful pipeline execution. The DevSecOps pipeline executes several security checks, builds the code, and deploys it in production. Moreover, the pipeline reports important information, such as the exact release timestamp. This timestamp is used to add clear vertical markers on the dashboards, helping visualize trends caused by newer releases.
 
 <p align="center">
-  <img src="images/Dashboard_After_Safe_Build_Good.png">
+  <img src="images/Dashboard_Good_Version.png">
 </p>
 
 The dashboard contains three key figures:
@@ -58,9 +58,10 @@ The dashboard contains three key figures:
 - The bottom-left: A break down of each endpoint, including its error rate, error count, total count, and the delay.
 
 After this brief overview of the dashboard, you should notice the following:
-- Within these figures, the red vertical line shows when a new release has been successfully deployed. 
+- The old version was `0.1.3` and the new version is `0.1.4`. This is clearly shown by the disconnected line charts on the graph.
+- The red vertical lines indicate the point in time the "new release" signal was raised. Roughly at this point, `0.1.3` line was discontinued, and `0.1.4` started. 
 - Before the release, the app was functioning without problems.
-- After the release, the app is still functioning within the safe thresholds. 
+- After the release, the app is still functioning within the safe thresholds (horizontal black lines are the thresholds). 
 
 So, the newly introduced version had no negative impact on the performance. Most importantly, we are not blindly claiming that the app is performant, rather we rely on objective metrics.
 
@@ -129,7 +130,7 @@ In addition to configuring an alert, a table was created to help administrators 
 | **Category** | **Details** |
 |---------------|-------------|
 | **Possible Causes** | - `MySQL` database is down <br> - Broken application update <br> - Misconfigured application environment variables |
-| **Response Steps** | 1. Check the dashboard. <br> 2. If **multiple endpoints** show errors → investigate the **database** status. <br> 3. If **only one endpoint** is affected → check that endpoint’s **configuration** and confirm whether a recent **update** caused the issue. |
+| **Response Steps** | 1. Check the dashboard. <br> 2. If **multiple endpoints** show errors → investigate the **database** status. <br> 3. If **only one endpoint** is affected → check that endpoint's **configuration** and confirm whether a recent **update** caused the issue. |
 
 ---
 
