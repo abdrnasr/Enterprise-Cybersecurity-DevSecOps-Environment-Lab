@@ -86,7 +86,7 @@ In `Elasticsearch`, we need to create the appropriate **indices**, **pipelines**
 
 In the `Dev Tools`, execute the following requests:
 
-```json
+```jsonc
 PUT _ingest/pipeline/app_logs_v1
 {
   "processors": [
@@ -158,7 +158,7 @@ All the requests should return `acknowledged`.
 
 To actually create the indices, we send API requests directly, using the index name. This can be tested manually in `Dev Tools` too using:
 
-```json
+```jsonc
 // Put a new document in the app-logs data stream
 POST app-logs/_doc
 { 
@@ -259,7 +259,7 @@ http {
 
 Now, upon any request, the console produces a correctly structured log as follows:
 
-```json
+```jsonc
 { "@timestamp":"2025-10-11T11:48:34+00:00",  "route":"/api/seeding",  "status":401,  "duration_s":0.053,  "client_ip":"192.168.33.3",  "user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" }
 ```
 
@@ -276,7 +276,7 @@ A few things to note here:
 
 Initially, we have defined a pipeline `app_logs_v1`, which accepts `duration_ms`. However, this is incompatible because `Nginx` reports the latency in seconds `duration_s`. The benefit of a pipeline is that we can now change it to take into account the new log form without changing the `app-logs` index. On the `Dev Tools` page, execute this command:
 
-```json
+```jsonc
 PUT _ingest/pipeline/app_logs_v1
 {
   "processors": [
@@ -524,7 +524,7 @@ If the pipeline succeeds, then you should see a response by `Elasticsearch`.
   <img src="images/GLab_Log_Forward_Succed.png">
 </p>
 
-```json
+```jsonc
 {
   "_index": "app-releases",
   "_id": "SzrEzJkB2vnblI3vaa6v", // Note, the ID here. It will be different for you.
@@ -548,7 +548,7 @@ If the pipeline succeeds, then you should see a response by `Elasticsearch`.
 
 ---
 
-# Testing A Build Pipeline 
+# Testing Build Completion Signal With A `GitLab` Pipeline
 
 Now that application logs and release are working, we can now integrate them into the full CI/CD pipeline. For speed, you may want to remove all security testing stages, and later enable them when everything works correctly.
 
@@ -1036,6 +1036,22 @@ With that, we have a semi-enterprise ready DevSecOps pipeline. To view the detai
 ## HTTP Header Data Exposure
 
 Putting headers into the responses without filtering the data before it reaches the server exposes some important information. For instance, sending the `version` back to the browser allows attackers to know which version is currently being run on the server. Attackers commonly use versions to look up exploit databases for public exploits. This can be solved by maintaining regular software updates, and cleaning up headers at `Nginx`. For the latter solution, `Nginx` is capable of removing certain headers, if they can pose risk. However, this must be explicitly configured.
+
+## Configuration Collisions
+
+Since we have two monitoring agents (`Wazuh` Agent and `Filebeat`) on the `DMZ VM`, we need to be careful not to break any of them. Both of these agents rely on logs produced by `Nginx`. However, they do not accept the same format of data. This is the reason we called `access_log` twice in the `Nginx` configuration, to log the same data on two different files with different formats, so that both agents can work.
+
+```nginx
+server {
+    location / {
+        proxy_pass http://192.168.20.2:${APP_PORT};
+        
+        # Only these two lines were added
+        access_log /var/log/nginx/access.log combined;
+        access_log /var/log/nginx/app.log app_json;
+    }
+}
+```
 
 ## Log Volume
 

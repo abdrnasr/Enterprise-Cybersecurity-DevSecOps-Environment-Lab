@@ -16,6 +16,9 @@
 - [How to Use This Repository](#how-to-use-this-repository)
   - [Non-Technical Readers](#non-technical-readers)
   - [Technical Readers](#technical-readers)
+    - [Technical Summary (Per Phase)](#technical-summary-per-phase)
+    - [How to Work Through the Labs](#how-to-work-through-the-labs)
+- [Technical Highlights](#technical-highlights)
 - [License](#license)
 
 ## Overview
@@ -160,10 +163,44 @@ In addition to the summary, there is usually a section **before** the summary th
    - Testing Scenarios  
    - Technical Summary  
 
+# Technical Highlights
 
-#### Technical Highlights
+This section emphasizes the most notable parts of the project. These sections contain more technically significant or impactful details than others.
 
-This section emphasizes the most notable parts of the project. Some sections contain more technically significant or impactful details than others.
+| **Phase** | **Task / File** | **Purpose / Description** |
+|------------|-----------------|---------------------------|
+| **Phase 1** | [VirtualBox Network Settings Configuration](phase1_infra/lab-steps-phase-1.md#virtualbox-network-settings-configuration) | Establishes the virtual network topology connecting all VMs. |
+|  | [Firewall Routing Setup](phase1_infra/lab-steps-phase-1.md#firewall-routing-setup) | Configures the `Firewall VM` for proper traffic forwarding between External, DMZ, and Internal zones. |
+| **Phase 2** | [Nginx TLS Encryption](phase2_app_iam/lab-steps-phase-2.md#nginx-tls-encryption) | Enables encrypted communication and secure reverse proxying. |
+|  | [Keycloak Configuration](phase2_app_iam/lab-steps-phase-2.md#iam-installation) | Integrates IAM and OIDC for secure app authentication. |
+|  | [Nat Hairpinning Problem & Temporary Solution](phase2_app_iam/lab-steps-phase-2.md#app-vm-to-dmz-connection-problem-discussion) | Explains and resolves internal routing edge cases for intra-network communication. |
+|  | [Role-Based Access Control in the Chat App](phase2_app_iam/lab-steps-phase-2.md#the-chat-app-access-control) | Demonstrates IAM-enforced access control in a real web app. |
+|  | [Nat Hairpinning Proper Solution](phase2_app_iam/lab-steps-phase-2.md#app-vm-to-dmz-connectivity-further-discussion) | Implements the proper NAT hairpinning configuration. |
+| **Phase 3** | [Elasticsearch & Kibana VM Setup](phase3_monitoring/lab-steps-phase-3.md#elasticsearch-vm) | Installs `Elasticsearch` and `Kibana` for centralized monitoring and analytics. |
+|  | [Wazuh Manager Installation](phase3_monitoring/lab-steps-phase-3.md#wazuh-vm) | Deploys endpoint detection and SIEM capabilities. |
+|  | [Attack Detection Test](phase3_monitoring/lab-steps-phase-3.md#attack-detection-test) | Verifies detection pipeline and visibility of simulated attacks. |
+|  | [Blind Spot Discussion](phase3_monitoring/lab-steps-phase-3.md#blind-spots--limitations) | Identifies monitoring gaps and defines Phase 4’s objectives. |
+| **Phase 4** | [Threat Modelling](phase4_attack_simulation/lab-steps-phase-4.md#) | Maps potential threats to assets and defines defensive priorities. |
+|  | [Addressing Port Scanning Blind Spot](phase4_attack_simulation/lab-steps-phase-4.md#addressing-port-scanning-blind-spot) | Implements detection rules and automated responses to port scanning activity. |
+|  | [Responding To The Attack](phase4_attack_simulation/lab-steps-phase-4.md#responding-to-the-attack) | Automates incident response workflows in `Wazuh`. |
+| **Phase 5** | [Installing GitLab via Docker](phase5_gitlab/lab-steps-phase-5.md#docker-compose-file) | Deploys self-hosted `GitLab` environment for CI/CD. |
+|  | [Integrating Keycloak IAM with GitLab](phase5_gitlab/lab-steps-phase-5.md#integrating-keycloak-iam) | Enables single sign-on for centralized identity management. |
+|  | [Bonus – Mapping Keycloak Roles to GitLab Roles](phase5_gitlab/lab-optional.md) | Synchronizes IAM permissions with `GitLab`’s access control model. |
+|  | [Building a Test Pipeline](phase5_gitlab/lab-steps-phase-5.md#building-a-test-pipeline) | Implements a minimal CI/CD job that seeds the app database securely. |
+| **Phase 6** | [Describing & Setting Up GitLab for The Pipeline](phase6_secure_pipeline/lab-steps-phase-6.md#describing--setting-up-gitlab-for-the-pipeline) | Defines all CI/CD stages and configuration. |
+|  | [Building The Pipeline](phase6_secure_pipeline/lab-steps-phase-6.md#building-the-pipeline) | Builds and connects all CI/CD stages. |
+|  | [Build & Release, DAST, and Deploy Using Blue-Green Strategy](phase6_secure_pipeline/lab-steps-phase-6.md#build--release-dast-deploy) | Implements build, DAST, and blue-green deployment strategy. |
+|  | [Running The Build & Release, DAST, and Deploy Stages](phase6_secure_pipeline/lab-steps-phase-6.md#running-the-build--release-dast-and-deploy-stages) | Validates end-to-end execution of build, DAST, and deploy with environment verification. |
+|  | [End-To-End Secure CI/CD (DevSecOps)](phase6_secure_pipeline/lab-steps-phase-6.md#end-to-end-secure-cicd-devsecops) | Combines all stages into one secure, continuous delivery pipeline. |
+| **Phase 6.1** | [Testing The Pipeline With a New Feature](phase6.1_feature_writing_and_reversion/lab-steps-phase-6.1.md#testing-the-pipeline-with-a-new-feature) | Builds and delivers a new feature using the secure CI/CD pipeline. |
+|  | [Preparing for The Blue-Green Version Restore](phase6.1_feature_writing_and_reversion/lab-steps-phase-6.1.md#preparing-for-the-blue-green-version-restore) | Pushes vulnerable code to prepare for rollback testing. |
+|  | [Testing Blue-Green Reversion](phase6.1_feature_writing_and_reversion/lab-steps-phase-6.1.md#testing-blue-green-reversion) | Executes rollback to restore a stable version. |
+| **Phase 7** | [Elasticsearch Setup](phase7_operational_observability/lab-steps-phase-7.md#elasticsearch-setup) | Prepares `Elasticsearch` to ingest application and release data. |
+|  | [Filebeat Installation & Configuration](phase7_operational_observability/lab-steps-phase-7.md#forwarding-with-filebeat) | Forwards logs from app and CI/CD pipeline to `Elasticsearch`. |
+|  | [Testing Build Completion Signal With A GitLab Pipeline](phase7_operational_observability/lab-steps-phase-7.md#testing-build-completion-signal-with-a-gitlab-pipeline) | Sends build completion signals from `GitLab` to `Elasticsearch`. |
+|  | [Working with Kibana](phase7_operational_observability/lab-steps-phase-7.md#working-with-kibana) | Visualizes application and release metrics through dashboards. |
+|  | [Full DevSecOps Pipeline With Monitoring](phase7_operational_observability/full-pipeline-with-monitoring.md) | Demonstrates a complete DevSecOps workflow integrating monitoring and CI/CD. |
+
 
 ---
 

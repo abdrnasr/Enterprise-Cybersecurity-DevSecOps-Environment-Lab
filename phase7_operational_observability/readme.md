@@ -32,7 +32,7 @@ By the end of this phase:
 ## Demo & Results – Non-Technical Overview 
 
 The ELK stack comprises `Elasticsearch`, `Logstash`, & `Kibana` each serving a distinct purpose in the stack.
-- `Elasticsearch`: keeps and organizes data so it can be quickly searched or analyzed.
+- `Elasticsearch`: stores and organizes data so it can be quickly searched or analyzed.
 - `Logstash`: gathers and cleans data before sending it for storage.
 - `Kibana`: shows the data in charts and dashboards so it is easy to understand.
 
