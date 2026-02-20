@@ -1,4 +1,10 @@
 #  Enterprise Cybersecurity & DevSecOps Environment Project
+
+<p align="center">
+  <img width=700 src="repo_resources/Main_Logo.png" alt="Project Logo" >
+</p>
+
+
 ## Content
 - [Overview](#overview)
 - [Project Goals & Progress](#project-goals)
@@ -85,7 +91,7 @@ This repository documents a complete, multi-phase **Cybersecurity, Software Engi
 ## Architecture
 
 <p align="center">
-  <img width=500 src="repo_resources/NetworkDiagram_V2.png" alt="Project Logo" >
+  <img width=500 src="repo_resources/NetworkDiagram_V2.png" alt="Network Setup" >
 </p>
 
 This architecture represents a balanced approach between simplicity and security, making it practical and effective for the scope of this project.
